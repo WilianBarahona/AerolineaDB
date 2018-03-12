@@ -1,0 +1,73 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="C09D1D3C-837F-5ED6-C4C4-ADF7C10D03B9" name="PuntoEscala">
+<createdBy>Lenovo Thinkpad Edge</createdBy>
+<createdTime>2018-03-12 04:21:43 UTC</createdTime>
+<ownerDesignName>AerolineaDB</ownerDesignName>
+<ordsAlias>table_46</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="idPuntoEscala" id="A2080C4B-34CF-4770-4363-F32F9843D369">
+<createdBy>Lenovo Thinkpad Edge</createdBy>
+<createdTime>2018-03-12 04:22:49 UTC</createdTime>
+<ownerDesignName>AerolineaDB</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nombrePuntoEscala" id="9315DD30-0B15-83B7-C0A9-E88016577F62">
+<createdBy>Lenovo Thinkpad Edge</createdBy>
+<createdTime>2018-03-12 04:22:49 UTC</createdTime>
+<ownerDesignName>AerolineaDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="longitud" id="1273554A-0818-8771-506D-979B3C46345B">
+<createdBy>Lenovo Thinkpad Edge</createdBy>
+<createdTime>2018-03-12 04:22:49 UTC</createdTime>
+<ownerDesignName>AerolineaDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT020</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,10,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="latitud" id="C010E03F-78C5-C4C8-DA68-96015C320731">
+<createdBy>Lenovo Thinkpad Edge</createdBy>
+<createdTime>2018-03-12 04:22:49 UTC</createdTime>
+<ownerDesignName>AerolineaDB</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT020</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,10,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="57B78B79-1120-B17C-C9A5-098909B3DCA7" name="PuntoEscala_PK">
+<createdBy>Lenovo Thinkpad Edge</createdBy>
+<createdTime>2018-03-12 04:24:12 UTC</createdTime>
+<ownerDesignName>AerolineaDB</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A2080C4B-34CF-4770-4363-F32F9843D369"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
