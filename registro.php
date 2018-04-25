@@ -115,13 +115,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <center><h5 class="modal-title">--BIENVENIDO A FLIPBOARD--</h5></center>
+        <center><h5 class="modal-title">--BIENVENIDO A AEROLINEA SOSA--</h5></center>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <center><p><h5 >Usuario Registrado exitosamente, por favor INCIE SESION</p></h5></center>
+        <center><p><h5 >Usuario Registrado exitosamente, por favor INICIE SESION</p></h5></center>
       </div>
       <div class="modal-footer">
         <button onclick="location='login.php'" type="button" class="btn btn-primary">Aceptar</button>
