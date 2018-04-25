@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-      <title>Registro-AEROLINEAS SOSA</title>
+      <title>Registro</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="icon" href="img/favicon.png">
