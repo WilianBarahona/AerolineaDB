@@ -1,0 +1,3 @@
+---------------------------
+Crear un usuario en sql developer llamado TEST_AEROLINEA
+para que el script pueda correr sin problemas
