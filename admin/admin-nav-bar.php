@@ -2,11 +2,15 @@
         <ul class="nav nav-sidebar" id="dashboard">
           <a href="" ><img src="../img/logo.png" class="img-responsive" alt=""></a>
 
-            <li id="btn-empleado">
-              <a href=""><span class="glyphicon glyphicon-user"></span> Empleados</a>
+            <li id="btn-dashboard">
+              <a href="admin-empleado.php"><span class="glyphicon glyphicon-dashboard"></span> DashBoard</a>
             </li>
 
-            <li id="btn_tripulante">
+            <li id="btn-empleado">
+              <a href="admin-empleado.php"><span class="glyphicon glyphicon-user"></span> Empleados</a>
+            </li>
+
+            <li id="btn-tripulante">
               <a href=""><span class="glyphicon glyphicon-cd"></span> Tripulantes</a>
             </li>
             <li id="btn-pasajero">
