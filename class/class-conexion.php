@@ -2,8 +2,8 @@
 
 	class Conexion{
 
-		private $usuario="TEST_CONECCION";
-		private $contrasena="asd.456";
+		private $usuario="TEST_CONECCION2";
+		private $contrasena="ASD.456";
 		private $host="localhost";
 		private $baseDatos="localhost/XE";
 		private $puerto="1521";
@@ -19,24 +19,24 @@
 	
 			if (!$this->link){
 				// ########No se puede conectar a la db por lo tanto salir de la conexion #########
-				echo "No se pudo conectar con mysql";
+				echo "No se pudo conectar con Oracle";
 				exit;
 			}else{
 				// echo "conexion exitosa"; ####conexion exitosa######
 
 				//Ejemplo para ejecutar y mostrar una consulta en el html
-				$stid = $this->ejecutarInstruccion('SELECT * FROM TBL_PERSONA');
+				// $stid = $this->ejecutarInstruccion('SELECT * FROM TBL_PERSONA');
 
-				echo "<table border='1'>\n";
-				while ($row = $this->obtenerFila($stid)) {
-				    echo "<tr>\n";
-				    foreach ($row as $item) {
-				        echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
-				    }
-				    echo "</tr>\n";
-				}
-				echo "</table>\n";
-				$this->liberarResultado($stid); //liberar todos los recursos asociados a esta consulta, direccion de memoria de cursores etc,...
+				// echo "<table border='1'>\n";
+				// while ($row = $this->obtenerFila($stid)) {
+				//     echo "<tr>\n";
+				//     foreach ($row as $item) {
+				//         echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
+				//     }
+				//     echo "</tr>\n";
+				// }
+				// echo "</table>\n";
+				// $this->liberarResultado($stid); //liberar todos los recursos asociados a esta consulta, direccion de memoria de cursores etc,...
 			}
 		}
 

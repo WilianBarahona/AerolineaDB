@@ -1,8 +1,11 @@
+
+####PERSONA
+
 idPersona
 pNombre
 sNombre 
 pApellido
-sApellid
+sApellido
 direccion
 correo
 password
@@ -13,3 +16,12 @@ fechaHoraRegistro
 EstadoCivil_idEstadoCivil
 Genero_idGenero
 Pais_idPais
+
+##GENERO
+
+
+
+##ESTADO CIVIL
+
+
+##Pais
