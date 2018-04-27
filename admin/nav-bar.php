@@ -3,11 +3,11 @@
           <a href="" ><img src="../img/logo.png" class="img-responsive" alt=""></a>
 
             <li id="btn-dashboard">
-              <a href="admin-empleado.php"><span class="glyphicon glyphicon-dashboard"></span> DashBoard</a>
+              <a href="empleado.php"><span class="glyphicon glyphicon-dashboard"></span> DashBoard</a>
             </li>
 
             <li id="btn-empleado">
-              <a href="admin-empleado.php"><span class="glyphicon glyphicon-user"></span> Empleados</a>
+              <a href="empleado.php"><span class="glyphicon glyphicon-user"></span> Empleados</a>
             </li>
 
             <li id="btn-tripulante">

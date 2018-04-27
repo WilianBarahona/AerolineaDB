@@ -22,7 +22,7 @@
   <div class="container-fluid">
     <div class="row">
       <?php 
-          include("admin-nav-bar.php");
+          include("nav-bar.php");
        ?>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-3 col-lg-offset-2 main">
         <div class="container-fluid">
