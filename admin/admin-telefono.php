@@ -12,6 +12,8 @@
 <head>
   <meta charset="utf-8">
   <title>Administración</title>
+   <link rel="icon" href="../img/icon-page-html.png">
+   <link rel="stylesheet" type="text/css" href="../css/all.css">
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/principal.css">
   <link rel="stylesheet" href="../css/jquery-confirm.min.css">
@@ -26,46 +28,91 @@
         <div class="container-fluid">
          <div class="row">
            
-           <h1>Álbumes</h1>
+           <h1>Empleados</h1>
            <hr>
            
            <div class="col-md-12">
-              <h3>Agregar Álbum</h3>
+              <h3>Agregar Empleado</h3>
               <table class="table table-striped">
                 <tr>
-                  <td>Fotografía: </td>
-                  <td>
-                    <input type="hidden" id="txt-url-foto-album">
-                    <form method="post" id="form-foto-album" name="form-foto-album" enctype="multipart/form-data">
-                      <label class="btn btn-default">
-                          Examinar <input type="file" name="file" id="file-foto-album" hidden>
-                      </label>
-                      <img src="../img/load.gif" id="carga-foto-album" class="img loading" height="20px">
-                      <img src="../img/good.png" id="lista-carga-foto-album" class="img loading" height="20px">
-                    </form>
-                  </td>
-                </tr>
-                <tr>
-                	<td>Artista: </td>
+                	<td>Primer Nombre</td>
                 	<td>
-                		<select name="slc-artista" id="slc-artista" class="form-control" placeholder="Seleccionar">
-                			<option value="" hidden="">Seleccionar</option>
-                		</select>
+                		<input type="text" id="txt-primer-nombre" class="form-control" placeholder="Primer Nombre">
                 	</td>
                 </tr>
                 <tr>
-                  <td>Nombre del álbum: </td>
+                 <td>Segundo Nombre</td>
                   <td>
-                    <input type="hidden" name="txt-id-album" id="txt-id-album">
-                    <input type="text" id="txt-nombre-album" id="txt-album" value="" placeholder="Nombre" class="form form-control"></td>
-                </tr>
-                <tr>
-                  <td>Año: </td>
-                  <td>
-                    <input class="form-control" type="date" name="txt-fecha" id="txt-fecha">
+                    <input type="text" id="txt-segundo-nombre" class="form-control" placeholder="Segundo Nombre">
                   </td>
                 </tr>
                 <tr>
+                  <td>Primer Apellido</td>
+                  <td>
+                    <input type="text" id="txt-primer-apellido" class="form-control" placeholder="Primer Apellido">
+                  </td>
+                </tr>
+                <tr>
+                 <td>Segundo Apellido</td>
+                  <td>
+                    <input type="text" id="txt-segundo-apellido" class="form-control" placeholder="Segundo Apellido">
+                  </td>
+                </tr>
+                <tr>
+                 <td>Direccion</td>
+                  <td>
+                    <input type="text" id="txt-direccion" class="form-control" placeholder="Direccion">
+                  </td>
+                </tr>
+                <tr>
+                 <td>Correo</td>
+                  <td>
+                    <input type="text" id="txt-correo" class="form-control" placeholder="Correo Electonico">
+                  </td>
+                </tr>
+                <tr>
+                  <td>Fecha de nacimiento</td>
+                  <td>
+                    <input class="form-control" type="date" id="txt-fecha-nacimiento">
+                  </td>
+                </tr>
+                <tr>
+                <tr>
+                  <td>Estado Civil</td>
+                  <td>
+                   <select id="slc-estado-civil" class="form-control">
+                      <option>Seleccione una opcion</option>
+                      <option>estados2</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Genero</td>
+                  <td>
+                    <select id="slc-genero" class="form-control">
+                      <option>Seleccione una opcion</option>
+                      <option>estados2</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Pais</td>
+                  <td>
+                    <select id="slc-pais" class="form-control">
+                      <option>Seleccione una opcion</option>
+                      <option>estados2</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                 <td>Cargo</td>
+                  <td>
+                    <select id="slc-cargo" class="form-control" placeholder="cargo">
+                      <option>Seleccione una opcion</option>
+                      <option>estados2</option>
+                    </select>
+                  </td>
+                </tr>
                   <td>
                     <button id="btn-guardar-album" type="button" class="btn btn-success"><span class="glyphicon glyphicon-save"></span> Guardar</button>
                     <button id="btn-actualizar-album" type="button" class="btn btn-info"><span class="glyphicon glyphicon-save"></span>Actualizar</button>
@@ -84,12 +131,15 @@
                 </table>
                 
               </div>
-              <table id="tbl-albumes" class="table table-striped">
+              <table id="tbl-empleado" class="table table-striped">
                 <thead>
-                  <th>Cover</th>
-                  <th>Album</th>
-                  <th>Artista</th>
-                  <th>Año</th>
+                  <th></th>
+                  <th>Primer Nombre</th>
+                  <th>Primer Apellido</th>
+                  <th>Dirrecion</th>
+                  <th>Correo</th>
+                  <th>Pais</th>
+                  <th>Cargo</th>
               </thead>
               <tbody></tbody>
               </table>
@@ -105,3 +155,5 @@
   <script type="text/javascript" src="../js/admin-album.js"></script>
 </body>
 </html>
+
+

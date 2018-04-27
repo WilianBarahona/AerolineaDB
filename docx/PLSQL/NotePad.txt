@@ -1,0 +1,15 @@
+idPersona
+pNombre
+sNombre 
+pApellido
+sApellid
+direccion
+correo
+password
+fechaNacimiento
+estadoCuenta
+TipoCuenta
+fechaHoraRegistro
+EstadoCivil_idEstadoCivil
+Genero_idGenero
+Pais_idPais
