@@ -2,7 +2,7 @@
 
 	class Conexion{
 
-		private $usuario="TEST_CONECCION2";
+		private $usuario="TEST_AEROLINEA2";
 		private $contrasena="ASD.456";
 		private $host="localhost";
 		private $baseDatos="localhost/XE";
@@ -22,7 +22,7 @@
 				echo "No se pudo conectar con Oracle";
 				exit;
 			}else{
-				// echo "conexion exitosa"; ####conexion exitosa######
+				 echo "conexion exitosa"; ####conexion exitosa######
 
 				//Ejemplo para ejecutar y mostrar una consulta en el html
 				// $stid = $this->ejecutarInstruccion('SELECT * FROM TBL_PERSONA');

@@ -18,21 +18,22 @@
 		private $Genero_idGenero;
 		private $Pais_idPais;
 
-		public function __construct($idPersona,
-					$pNombre,
-					$sNombre ,
-					$pApellido,
-					$sApellido,
-					$direccion,
-					$correo,
-					$password,
-					$fechaNacimiento,
-					$estadoCuenta,
-					$TipoCuenta,
-					$fechaHoraRegistro,
-					$EstadoCivil_idEstadoCivil,
-					$Genero_idGenero,
-					$Pais_idPais){
+		public function __construct(
+					$idPersona=null,
+					$pNombre=null,
+					$sNombre =null,
+					$pApellido=null,
+					$sApellido=null,
+					$direccion=null,
+					$correo=null,
+					$password=null,
+					$fechaNacimiento=null,
+					$estadoCuenta=null,
+					$TipoCuenta=null,
+					$fechaHoraRegistro=null,
+					$EstadoCivil_idEstadoCivil=null,
+					$Genero_idGenero=null,
+					$Pais_idPais=null){
 			$this->idPersona = $idPersona;
 			$this->pNombre = $pNombre;
 			$this->sNombre  = $sNombre ;

@@ -120,8 +120,8 @@
                 </tr>
               </table>
             </div>
-             <div class="well col-md-12" id="div-albumes">
-              <span class="glyphicon glyphicon-search" onclick="buscarAlbum()"></span>&nbsp&nbsp&nbsp
+             <div class="well col-md-12" id="div-empleados">
+              <!-- <span class="glyphicon glyphicon-search" onclick="buscarAlbum()"></span>&nbsp&nbsp&nbsp -->
               <input type="text" id="txt-busqueda" placeholder="Busqueda" style="border-radius:8px">
               <div id="div-busqueda">
                 <table id="tbl-busquedas" class="table table-striped">
@@ -131,7 +131,7 @@
                 </table>
                 
               </div>
-              <table id="tbl-empleado" class="table table-striped">
+              <table id="tbl-empleados" class="table table-striped">
                 <thead>
                   <th></th>
                   <th>Primer Nombre</th>

@@ -8,24 +8,25 @@
 		private $Persona_idPersona;
 
 		public function __construct(
-					$idEmpleado,
-					$fechaIngresoAerolinea,
-					$Persona_idPersona){
-			parent::__construct($idPersona,
-					$pNombre,
-					$sNombre ,
-					$pApellido,
-					$sApellido,
-					$direccion,
-					$correo,
-					$password,
-					$fechaNacimiento,
-					$estadoCuenta,
-					$TipoCuenta,
-					$fechaHoraRegistro,
-					$EstadoCivil_idEstadoCivil,
-					$Genero_idGenero,
-					$Pais_idPais);
+					$idEmpleado=null,
+					$fechaIngresoAerolinea=null,
+					$Persona_idPersona=null){
+			parent::__construct(
+					$idPersona=null,
+					$pNombre=null,
+					$sNombre =null,
+					$pApellido=null,
+					$sApellido=null,
+					$direccion=null,
+					$correo=null,
+					$password=null,
+					$fechaNacimiento=null,
+					$estadoCuenta=null,
+					$TipoCuenta=null,
+					$fechaHoraRegistro=null,
+					$EstadoCivil_idEstadoCivil=null,
+					$Genero_idGenero=null,
+					$Pais_idPais=null);
 
 			$this->idEmpleado = $idEmpleado;
 			$this->fechaIngresoAerolinea = $fechaIngresoAerolinea;
@@ -60,6 +61,10 @@
 			return "IdEmpleado: " . $this->idEmpleado . 
 				" FechaIngresoAerolinea: " . $this->fechaIngresoAerolinea . 
 				" Persona_idPersona: " . $this->Persona_idPersona;
+		}
+
+		public function mostrarTodos($objConexion){
+
 		}
 	}
 ?>
