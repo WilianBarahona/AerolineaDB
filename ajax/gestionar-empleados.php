@@ -6,7 +6,8 @@
 	$objConexion=new Conexion();
 	switch($_POST['accion']){
 		case 'mostrar-todos':
-			Empleado::mostrarTodos($objConexion);
+			$stid=Empleado::mostrarTodos($objConexion);
+			echo json_encode($stid);
 		break;
 	}
 

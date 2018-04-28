@@ -1,6 +1,6 @@
 <div id="sidebar" class="col-sm-3 col-md-3 col-lg-2 sidebar">
         <ul class="nav nav-sidebar" id="dashboard">
-          <a href="" ><img src="../img/logo.png" class="img-responsive" alt=""></a>
+          <a href="" ><img style="background-image:white;" src="../img/logo.png" class="img-responsive" alt=""></a>
 
             <li id="btn-dashboard">
               <a href="empleado.php"><span class="glyphicon glyphicon-dashboard"></span> DashBoard</a>

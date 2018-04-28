@@ -14,6 +14,7 @@
   <title>Administración</title>
    <link rel="icon" href="../img/icon-page-html.png">
    <link rel="stylesheet" type="text/css" href="../css/all.css">
+   <link rel="stylesheet" type="text/css" href="../css/jquery-data-table.css">
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/principal.css">
   <link rel="stylesheet" href="../css/jquery-confirm.min.css">
@@ -121,23 +122,13 @@
               </table>
             </div>
              <div class="well col-md-12" id="div-empleados">
-              <!-- <span class="glyphicon glyphicon-search" onclick="buscarAlbum()"></span>&nbsp&nbsp&nbsp -->
-              <input type="text" id="txt-busqueda" placeholder="Busqueda" style="border-radius:8px">
-              <div id="div-busqueda">
-                <table id="tbl-busquedas" class="table table-striped">
-                  <thead></thead>
-                  <tbody>
-                  </tbody>
-                </table>
-                
-              </div>
               <table id="tbl-empleados" class="table table-striped">
                 <thead>
-                  <th></th>
                   <th>Primer Nombre</th>
                   <th>Primer Apellido</th>
                   <th>Dirrecion</th>
                   <th>Correo</th>
+                  <th>Genero</th>
                   <th>Pais</th>
                   <th>Cargo</th>
               </thead>
@@ -152,6 +143,7 @@
 
   <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="../js/jquery-confirm.min.js"></script>
+  <script type="text/javascript" src="../js/jquery-data-table.js"></script>
   <script type="text/javascript" src="../js/admin-empleado.js"></script>
 </body>
 </html>
