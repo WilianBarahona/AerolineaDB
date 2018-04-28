@@ -20,7 +20,7 @@ function mostrarTodos(){
 			for (var i = 0; i < respuesta.length; i++) {
 				var empleados = respuesta[i];
 				var fila = 
-				'<tr id="tbl-tripulantes-select-fila-' +empleados.IDEMPLEADO+'">'+
+				'<tr id="tbl-tripulantes-fila-' +empleados.IDTRIPULANTE+'">'+
 					  '<td>'+empleados.PNOMBRE +'</td>'+
 		              '<td>'+empleados.PAPELLIDO+'</td>'+
 		              '<td>'+empleados.DIRECCION+'</td>'+
@@ -29,10 +29,10 @@ function mostrarTodos(){
 		              '<td>'+empleados.NOMBREPAIS+'</td>'+
 		              '<td>'+empleados.NOMBRECARGO+'</td>'+
 		              '<td>'+
-		              '<button onclick="actualizarRegistor('+empleados.IDTRIPULANTE+')" class="btn btn-default btn-xs">'+
+		              '<button onclick="actualizarTripulante('+empleados.IDTRIPULANTE+')" class="btn btn-default btn-xs">'+
 		               		'<span style="color:green;" class="glyphicon glyphicon-refresh"></span>'+
 		               '</button>'+
-		               '&nbsp&nbsp<button onclick="eliminarRegistro('+empleados.IDTRIPULANTE+')" class="btn btn-default btn-xs">'+
+		               '&nbsp&nbsp<button onclick="eliminarTripulante('+empleados.IDTRIPULANTE+')" class="btn btn-default btn-xs">'+
 		               		'<span style="color:red;" class="glyphicon glyphicon-trash"></span>'+
 		               '</button>'+
 					  '</td>'+
@@ -80,7 +80,7 @@ function mostrarTblDatosTripulantes(){
 		              '<td>'+empleados.NOMBREPAIS+'</td>'+
 		              '<td>'+empleados.NOMBRECARGO+'</td>'+
 		              '<td>'+
-		              '&nbsp&nbsp<button onclick="seleccionarRegistro('+empleados.IDTRIPULANTE+')" class="btn btn-default btn-xs">'+
+		              '&nbsp&nbsp<button onclick="seleccionarTripulante('+empleados.IDTRIPULANTE+')" class="btn btn-default btn-xs">'+
 		               		'<span style="color:green;" class="glyphicon glyphicon-ok"></span>'+
 		              '</button>'+
 					  '</td>'+
@@ -135,12 +135,17 @@ function mostrarTablaDatosEmpleado(){
 	$("#tbl-datos-tripulantes").find("#tr-pais").show();
 }
 
-function actualizarRegistor(idTripulante){
+function actualizarTripulante(idTripulante){
 
 }
-function eliminarRegistro(idTripulante){
+function eliminarTripulante(idTripulante){
 
 }
-function seleccionarRegistro(idTripulante){
+
+function insertarTripulante(idTripulante){
+
+}
+
+function seleccionarTripulante(idTripulante){
 
 }

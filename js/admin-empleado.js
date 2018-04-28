@@ -18,7 +18,7 @@ function mostrarTodos(){
 			for (var i = 0; i < respuesta.length; i++) {
 				var empleados = respuesta[i];
 				var fila = 
-				'<tr>'+
+				'<tr id="tbl-empleados-fila-' +empleados.IDEMPLEADO+'">'+
 					  '<td>'+empleados.PNOMBRE +'</td>'+
 		              '<td>'+empleados.PAPELLIDO+'</td>'+
 		              '<td>'+empleados.DIRECCION+'</td>'+
@@ -26,6 +26,14 @@ function mostrarTodos(){
 		              '<td>'+empleados.NOMBREGENERO+'</td>'+
 		              '<td>'+empleados.NOMBREPAIS+'</td>'+
 		              '<td>'+empleados.NOMBRECARGO+'</td>'+
+		              '<td>'+
+		              '<button onclick="actualizarEmpleado('+empleados.IDEMPLEADO+')" class="btn btn-default btn-xs">'+
+		               		'<span style="color:green;" class="glyphicon glyphicon-refresh"></span>'+
+		               '</button>'+
+		               '&nbsp&nbsp<button onclick="eliminarEmpleado('+empleados.IDEMPLEADO+')" class="btn btn-default btn-xs">'+
+		               		'<span style="color:red;" class="glyphicon glyphicon-trash"></span>'+
+		               '</button>'+
+					  '</td>'+
 				'</tr>';
 
 				$("#div-empleados #tbl-empleados tbody").append(fila);
@@ -44,6 +52,22 @@ function mostrarTodos(){
 	        { data: 'Cargo'}
     	]
 	});
+}
+
+
+function actualizarEmpleado(idEmpleado){
+
+}
+function eliminarEmpleado(idEmpleado){
+
+}
+
+function insertarEmpleado(idEmpleado){
+
+}
+
+function seleccionarEmpleado(idEmpleado){
+
 }
 
 
