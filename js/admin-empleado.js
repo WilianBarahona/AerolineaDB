@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	//Mostrar los empleados
+	$("#btn-actualizar-empleado").hide();
 	mostrarTodos();
 	
 })

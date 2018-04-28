@@ -11,7 +11,7 @@
             </li>
 
             <li id="btn-tripulante">
-              <a href=""><span class="glyphicon glyphicon-cd"></span> Tripulantes</a>
+              <a href="tripulante.php"><span class="glyphicon glyphicon-cd"></span> Tripulantes</a>
             </li>
             <li id="btn-pasajero">
               <a href=""><span class="glyphicon glyphicon-music"></span> Pasajeros</a>
