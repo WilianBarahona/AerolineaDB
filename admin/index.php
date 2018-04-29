@@ -63,7 +63,7 @@
                   <img class="second-slide" src="../img/carrousel2.jpg" alt="Second slide">
                   <div class="container">
                     <div class="carousel-caption">
-                      <h1 class=" carrousel size-font-carrusel"><b>Viaja Comodo y Seguro</b></h1>
+                      <h1 class=" carrousel size-font-carrusel"><b>Viaje Comodo y Seguro</b></h1>
                     </div>
                   </div>
                 </div>
