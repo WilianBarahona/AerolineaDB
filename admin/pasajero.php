@@ -29,7 +29,7 @@
         <div class="container-fluid">
          <div class="row">
            
-           <h1><span class="glyphicon glyphicon-user">&nbsp</span>Empleados</h1>
+           <h1><span class="glyphicon glyphicon-briefcase">&nbsp</span>Pasajeros</h1>
            <hr>
            
            <div class="col-md-12">
