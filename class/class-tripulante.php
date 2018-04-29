@@ -1,5 +1,5 @@
 <?php
-	include("class-empleado.php");
+	include_once("class-empleado.php");
 
 	class Tripulante extends Empleado{
 
@@ -7,12 +7,28 @@
 		private $Empleado_idEmpleado;
 
 		public function __construct(
-					$idTripulante,
-					$Empleado_idEmpleado){
+					$idTripulante=null,
+					$Empleado_idEmpleado=null){
 			parent::__construct(
 					$idEmpleado=null,
 					$fechaIngresoAerolinea=null,
-					$Persona_idPersona=null);
+					$Persona_idPersona=null,
+					$idPersona=null,
+					$pNombre=null,
+					$sNombre =null,
+					$pApellido=null,
+					$sApellido=null,
+					$direccion=null,
+					$correo=null,
+					$password=null,
+					$fechaNacimiento=null,
+					$estadoCuenta=null,
+					$TipoCuenta=null,
+					$fechaHoraRegistro=null,
+					$EstadoCivil_idEstadoCivil=null,
+					$Genero_idGenero=null,
+					$Pais_idPais=null
+				);
 			$this->idTripulante = $idTripulante;
 			$this->Empleado_idEmpleado = $Empleado_idEmpleado;
 		}

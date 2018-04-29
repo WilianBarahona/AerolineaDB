@@ -9,12 +9,12 @@
 		private $Marca_idMarca;
 		private $pesoMaximoEquipaje;
 
-		public function __construct($idAvion,
-					$registro,
-					$cantidadAsientos,
-					$Modelo_idModelo,
-					$Marca_idMarca,
-					$pesoMaximoEquipaje){
+		public function __construct($idAvion=null,
+					$registro=null,
+					$cantidadAsientos=null,
+					$Modelo_idModelo=null,
+					$Marca_idMarca=null,
+					$pesoMaximoEquipaje=null){
 			$this->idAvion = $idAvion;
 			$this->registro = $registro;
 			$this->cantidadAsientos = $cantidadAsientos;

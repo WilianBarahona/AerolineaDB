@@ -2,21 +2,21 @@
 
 	class Persona{
 
-		private $idPersona;
-		private $pNombre;
-		private $sNombre ;
-		private $pApellido;
-		private $sApellido;
-		private $direccion;
-		private $correo;
-		private $password;
-		private $fechaNacimiento;
-		private $estadoCuenta;
-		private $TipoCuenta;
-		private $fechaHoraRegistro;
-		private $EstadoCivil_idEstadoCivil;
-		private $Genero_idGenero;
-		private $Pais_idPais;
+		protected $idPersona;
+		protected $pNombre;
+		protected $sNombre ;
+		protected $pApellido;
+		protected $sApellido;
+		protected $direccion;
+		protected $correo;
+		protected $password;
+		protected $fechaNacimiento;
+		protected $estadoCuenta;
+		protected $TipoCuenta;
+		protected $fechaHoraRegistro;
+		protected $EstadoCivil_idEstadoCivil;
+		protected $Genero_idGenero;
+		protected $Pais_idPais;
 
 		public function __construct(
 					$idPersona=null,

@@ -6,9 +6,9 @@
 		private $aliasRuta;
 		private $tiempoPromedio;
 
-		public function __construct($idRuta,
-					$aliasRuta,
-					$tiempoPromedio){
+		public function __construct($idRuta=null,
+					$aliasRuta=null,
+					$tiempoPromedio=null){
 			$this->idRuta = $idRuta;
 			$this->aliasRuta = $aliasRuta;
 			$this->tiempoPromedio = $tiempoPromedio;

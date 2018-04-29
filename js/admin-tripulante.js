@@ -3,10 +3,32 @@
 	//$("#div-select-tripulante").css("display","none");
 	ocultarTablaDatosEmpleado();
 	mostrarTblDatosTripulantes();
+	listarEstadoCivil();
 	mostrarTodos();
 	
 })
 
+function listarEstadoCivil(){
+	$.ajax({
+		url:"../ajax/gestionar-tripulantes.php",
+		method:"POST",
+		dataType: "JSON",
+		data:{
+			"accion":"listar-estados-civiles"
+		},
+		success: function(respuesta){
+			for (var i = 0; i < respuesta.length; i++) {
+				var estadoCivil = respuesta[i];
+				var fila ='<option value="'+estadoCivil.IDESTADOCIVIL+'">'
+							+estadoCivil.NOMBREESTADOCIVIL+'</option>';
+
+				$("#slc-estado-civil").append(fila);
+			}
+		},
+		error: function(e){
+		}
+	});
+}
 
 function mostrarTodos(){
 	$.ajax({

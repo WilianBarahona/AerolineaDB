@@ -95,8 +95,7 @@
                   <td><span style="color:red;font-weight: bold;">*&nbsp&nbsp</span>Estado Civil</td>
                   <td>
                    <select id="slc-estado-civil" class="form-control">
-                      <option>Seleccione una opcion</option>
-                      <option>estados2</option>
+                      <option value="0">Seleccione una opcion</option>
                     </select>
                   </td>
                 </tr>
@@ -104,8 +103,7 @@
                   <td><span style="color:red;font-weight: bold;">*&nbsp&nbsp</span>Genero</td>
                   <td>
                     <select id="slc-genero" class="form-control">
-                      <option>Seleccione una opcion</option>
-                      <option>estados2</option>
+                      <option value="0">Seleccione una opcion</option>
                     </select>
                   </td>
                 </tr>
@@ -113,8 +111,7 @@
                   <td><span style="color:red;font-weight: bold;">*&nbsp&nbsp</span>Pais</td>
                   <td>
                     <select id="slc-pais" class="form-control">
-                      <option>Seleccione una opcion</option>
-                      <option>estados2</option>
+                      <option value="0">Seleccione una opcion</option>
                     </select>
                   </td>
                 </tr>
@@ -122,8 +119,7 @@
                  <td><span style="color:red;font-weight: bold;">*&nbsp&nbsp</span>Cargo</td>
                   <td>
                     <select id="slc-cargo" class="form-control" placeholder="cargo">
-                      <option>Seleccione una opcion</option>
-                      <option>estados2</option>
+                      <option value="0">Seleccione una opcion</option> 
                     </select>
                   </td>
                 </tr>

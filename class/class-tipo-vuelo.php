@@ -31,7 +31,7 @@
 		public function setDescripcion($descripcion){
 			$this->descripcion = $descripcion;
 		}
-		public function toString(){
+		public function __toString(){
 			return "IdTipoVuelo: " . $this->idTipoVuelo . 
 				" NombreTipoVuelo: " . $this->nombreTipoVuelo . 
 				" Descripcion: " . $this->descripcion;

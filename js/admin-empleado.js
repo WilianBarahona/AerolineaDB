@@ -1,9 +1,102 @@
 $(document).ready(function(){
 	//Mostrar los empleados
 	$("#btn-actualizar-empleado").hide();
+	listarEstadoCivil();
+	listarGenero();
+	listarPais();
+	listarCargo();
 	mostrarTodos();
 	
 })
+
+function listarEstadoCivil(){
+	$.ajax({
+		url:"../ajax/gestionar-empleados.php",
+		method:"POST",
+		dataType: "JSON",
+		data:{
+			"accion":"listar-estados-civiles"
+		},
+		success: function(respuesta){
+			for (var i = 0; i < respuesta.length; i++) {
+				var estadoCivil = respuesta[i];
+				var fila ='<option value="'+estadoCivil.IDESTADOCIVIL+'">'
+							+estadoCivil.NOMBREESTADOCIVIL+'</option>';
+
+				$("#slc-estado-civil").append(fila);
+			}
+		},
+		error: function(e){
+		}
+	});
+}
+
+function listarGenero(){
+	$.ajax({
+		url:"../ajax/gestionar-empleados.php",
+		method:"POST",
+		dataType: "JSON",
+		data:{
+			"accion":"listar-generos"
+		},
+		success: function(respuesta){
+			for (var i = 0; i < respuesta.length; i++) {
+				var genero = respuesta[i];
+				var fila ='<option value="'+genero.IDGENERO+'">'
+							+genero.NOMBREGENERO+'</option>';
+
+				$("#slc-genero").append(fila);
+			}
+		},
+		error: function(e){
+		}
+	});
+}
+
+function listarPais(){
+	$.ajax({
+		url:"../ajax/gestionar-empleados.php",
+		method:"POST",
+		dataType: "JSON",
+		data:{
+			"accion":"listar-paises"
+		},
+		success: function(respuesta){
+			for (var i = 0; i < respuesta.length; i++) {
+				var pais = respuesta[i];
+				var fila ='<option value="'+pais.IDPAIS+'">'
+							+pais.NOMBREPAIS+'</option>';
+
+				$("#slc-pais").append(fila);
+			}
+		},
+		error: function(e){
+		}
+	});
+
+}
+
+function listarCargo(){
+	$.ajax({
+		url:"../ajax/gestionar-empleados.php",
+		method:"POST",
+		dataType: "JSON",
+		data:{
+			"accion":"listar-cargos-empleados"
+		},
+		success: function(respuesta){
+			for (var i = 0; i < respuesta.length; i++) {
+				var cargo = respuesta[i];
+				var fila ='<option value="'+cargo.IDESTADOCIVIL+'">'
+							+cargo.NOMBREESTADOCIVIL+'</option>';
+
+				$("#slc-cargo").append(fila);
+			}
+		},
+		error: function(e){
+		}
+	});
+}
 
 
 function mostrarTodos(){
@@ -53,6 +146,8 @@ function mostrarTodos(){
 	        { data: 'Opciones'}
     	]
 	});
+
+	
 }
 
 
