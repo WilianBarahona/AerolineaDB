@@ -186,7 +186,7 @@
       <!-- FOOTER -->
       <footer>
         
-        <p>&copy; 2017 Company, Inc.</p>
+        <p>&copy; 2018 Company, Inc.</p>
       </footer>
 
     </div><!-- /.container -->

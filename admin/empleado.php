@@ -11,7 +11,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Administración</title>
+  <title>Empleados</title>
    <link rel="icon" href="../img/icon-page-html.png">
    <link rel="stylesheet" type="text/css" href="../css/all.css">
    <link rel="stylesheet" type="text/css" href="../css/jquery-data-table.css">
@@ -29,7 +29,7 @@
         <div class="container-fluid">
          <div class="row">
            
-           <h1>Empleados</h1>
+           <h1><span class="glyphicon glyphicon-user">&nbsp</span>Empleados</h1>
            <hr>
            
            <div class="col-md-12">
@@ -131,6 +131,7 @@
                   <th>Genero</th>
                   <th>Pais</th>
                   <th>Cargo</th>
+                  <th>Opciones</th>
               </thead>
               <tbody></tbody>
               </table>

@@ -3,7 +3,7 @@
           <a href="" ><img style="background-image:white;" src="../img/logo.png" class="img-responsive" alt=""></a>
 
             <li id="btn-dashboard">
-              <a href="empleado.php"><span class="glyphicon glyphicon-dashboard"></span> DashBoard</a>
+              <a href="index.php"><span class="glyphicon glyphicon-home"></span> DashBoard</a>
             </li>
 
             <li id="btn-empleado">
@@ -11,10 +11,10 @@
             </li>
 
             <li id="btn-tripulante">
-              <a href="tripulante.php"><span class="glyphicon glyphicon-cd"></span> Tripulantes</a>
+              <a href="tripulante.php"><span class="glyphicon glyphicon-user"></span>&nbsp<span class="glyphicon glyphicon-send"></span> Tripulantes</a>
             </li>
             <li id="btn-pasajero">
-              <a href=""><span class="glyphicon glyphicon-music"></span> Pasajeros</a>
+              <a href=""><span class="glyphicon glyphicon-briefcase"></span> Pasajeros</a>
             </li>
 
             <li id="btn-vuelo">

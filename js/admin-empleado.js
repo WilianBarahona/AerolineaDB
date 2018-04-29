@@ -49,7 +49,8 @@ function mostrarTodos(){
 	        { data: 'Correo' },
 	        { data: 'Genero' },
 	        { data: 'Pais' },
-	        { data: 'Cargo'}
+	        { data: 'Cargo'},
+	        { data: 'Opciones'}
     	]
 	});
 }

@@ -11,7 +11,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Administración</title>
+  <title>Tripulantes</title>
    <link rel="icon" href="../img/icon-page-html.png">
    <link rel="stylesheet" type="text/css" href="../css/all.css">
    <link rel="stylesheet" type="text/css" href="../css/jquery-data-table.css">
@@ -28,7 +28,7 @@
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-3 col-lg-offset-2 main">
         <div class="container-fluid">
          <div class="row">
-           <h1>Tripulantes</h1>
+           <h1><span class="glyphicon glyphicon-user"></span>&nbsp<span class="glyphicon glyphicon-send">&nbsp</span>Tripulantes</h1>
            <hr>
            
            <div class="col-md-12">
