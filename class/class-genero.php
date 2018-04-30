@@ -37,7 +37,7 @@
 				" AbreviaturaGenero: " . $this->abreviaturaGenero;
 		}
 
-		public function listarGenero($objConexion){
+		public static function listarGenero($objConexion){
 			$sql="SELECT IDGENERO,NOMBREGENERO,AbreviaturaGenero
 				  FROM GENERO";
 		     $stid=$objConexion->ejecutarInstruccion($sql);

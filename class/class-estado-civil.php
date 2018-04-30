@@ -28,7 +28,7 @@
 		}
 
 
-		public function listarEstadoCivil($objConexion){
+		public static function listarEstadoCivil($objConexion){
 			$sql="SELECT EC.IDESTADOCIVIL,EC.NombreEstadoCivil
 				  FROM ESTADOCIVIL EC
 				";

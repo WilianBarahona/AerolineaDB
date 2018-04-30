@@ -46,5 +46,32 @@
 				" SueldoBase: " . $this->sueldoBase . 
 				" Observacion: " . $this->observacion;
 		}
+
+		public static function listarCargoEmpleado($objConexion){
+			$sql="SELECT IDCARGO,NOMBRECARGO
+				  FROM CARGO";
+		     $stid=$objConexion->ejecutarInstruccion($sql);
+
+				$cargos=array();
+				while($cargo=$objConexion->obtenerFila($stid)){
+				  $cargos[]=$cargo;
+
+				}
+			return $cargos;
+		}
+
+		public static function listarCargoTripulante($objConexion){
+			$sql="SELECT IDCARGO,NOMBRECARGO
+				  FROM CARGO
+				  WHERE OBSERVACION='T'";
+		     $stid=$objConexion->ejecutarInstruccion($sql);
+
+				$cargos=array();
+				while($cargo=$objConexion->obtenerFila($stid)){
+				  $cargos[]=$cargo;
+
+				}
+			return $cargos;
+		}
 	}
 ?>

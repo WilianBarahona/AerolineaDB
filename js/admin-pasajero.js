@@ -2,6 +2,8 @@ $(document).ready(function(){
 	//Mostrar los pasajeros
 	$("#btn-actualizar-pasajero").hide();
 	listarEstadoCivil();
+	listarGenero();
+	listarPais();
 	mostrarTodos();
 	
 })
@@ -28,6 +30,50 @@ function listarEstadoCivil(){
 	});
 }
 
+function listarGenero(){
+	$.ajax({
+		url:"../ajax/gestionar-pasajeros.php",
+		method:"POST",
+		dataType: "JSON",
+		data:{
+			"accion":"listar-generos"
+		},
+		success: function(respuesta){
+			for (var i = 0; i < respuesta.length; i++) {
+				var genero = respuesta[i];
+				var fila ='<option value="'+genero.IDGENERO+'">'
+							+genero.NOMBREGENERO+'</option>';
+
+				$("#slc-genero").append(fila);
+			}
+		},
+		error: function(e){
+		}
+	});
+}
+
+function listarPais(){
+	$.ajax({
+		url:"../ajax/gestionar-pasajeros.php",
+		method:"POST",
+		dataType: "JSON",
+		data:{
+			"accion":"listar-paises"
+		},
+		success: function(respuesta){
+			for (var i = 0; i < respuesta.length; i++) {
+				var pais = respuesta[i];
+				var fila ='<option value="'+pais.IDPAIS+'">'
+							+pais.NOMBREPAIS+'</option>';
+
+				$("#slc-pais").append(fila);
+			}
+		},
+		error: function(e){
+		}
+	});
+
+}
 
 function mostrarTodos(){
 	$.ajax({

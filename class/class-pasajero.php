@@ -65,7 +65,7 @@
 				" NumeroPasaporte: " . $this->numeroPasaporte;
 		}
 
-		public function mostrarTodos($objConexion){
+		public static function mostrarTodos($objConexion){
 			$sql="SELECT *
 				 FROM PERSONA P
 				 INNER JOIN PASAJERO PJ ON P.IDPERSONA=PJ.PERSONA_IDPERSONA

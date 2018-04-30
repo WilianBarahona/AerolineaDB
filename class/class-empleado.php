@@ -63,7 +63,7 @@
 				" Persona_idPersona: " . $this->Persona_idPersona;
 		}
 
-		public function mostrarTodos($objConexion){
+		public static function mostrarTodos($objConexion){
 			//echo "listo";
 			$sql="SELECT P.IDPERSONA,P.PNOMBRE,P.SNOMBRE,P.PAPELLIDO,P.SAPELLIDO,P.DIRECCION,P.CORREO,
 				  E.IDEMPLEADO,E.FECHAINGRESOAEROLINEA,

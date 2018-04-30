@@ -56,5 +56,18 @@
 				" CodigoPostal: " . $this->codigoPostal . 
 				" FotoBandera: " . $this->fotoBandera;
 		}
+
+		public static function listarPais($objConexion){
+			$sql="SELECT IDPAIS,NOMBREPAIS
+				  FROM PAIS";
+		     $stid=$objConexion->ejecutarInstruccion($sql);
+
+				$paises=array();
+				while($pais=$objConexion->obtenerFila($stid)){
+				  $paises[]=$pais;
+
+				}
+			return $paises;
+		}
 	}
 ?>

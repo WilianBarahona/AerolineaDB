@@ -4,6 +4,9 @@
 	ocultarTablaDatosEmpleado();
 	mostrarTblDatosTripulantes();
 	listarEstadoCivil();
+	listarGenero();
+	listarPais();
+	listarCargo();
 	mostrarTodos();
 	
 })
@@ -29,6 +32,73 @@ function listarEstadoCivil(){
 		}
 	});
 }
+
+function listarGenero(){
+	$.ajax({
+		url:"../ajax/gestionar-tripulantes.php",
+		method:"POST",
+		dataType: "JSON",
+		data:{
+			"accion":"listar-generos"
+		},
+		success: function(respuesta){
+			for (var i = 0; i < respuesta.length; i++) {
+				var genero = respuesta[i];
+				var fila ='<option value="'+genero.IDGENERO+'">'
+							+genero.NOMBREGENERO+'</option>';
+
+				$("#slc-genero").append(fila);
+			}
+		},
+		error: function(e){
+		}
+	});
+}
+
+function listarPais(){
+	$.ajax({
+		url:"../ajax/gestionar-tripulantes.php",
+		method:"POST",
+		dataType: "JSON",
+		data:{
+			"accion":"listar-paises"
+		},
+		success: function(respuesta){
+			for (var i = 0; i < respuesta.length; i++) {
+				var pais = respuesta[i];
+				var fila ='<option value="'+pais.IDPAIS+'">'
+							+pais.NOMBREPAIS+'</option>';
+
+				$("#slc-pais").append(fila);
+			}
+		},
+		error: function(e){
+		}
+	});
+}
+
+function listarCargo(){
+	$.ajax({
+		url:"../ajax/gestionar-tripulantes.php",
+		method:"POST",
+		dataType: "JSON",
+		data:{
+			"accion":"listar-cargos-tripulantes"
+		},
+		success: function(respuesta){
+			for (var i = 0; i < respuesta.length; i++) {
+				var cargo = respuesta[i];
+				var fila ='<option value="'+cargo.IDCARGO+'">'
+							+cargo.NOMBRECARGO+'</option>';
+
+				$("#slc-cargo").append(fila);
+			}
+		},
+		error: function(e){
+		}
+	});
+}
+
 
 function mostrarTodos(){
 	$.ajax({

@@ -87,8 +87,8 @@ function listarCargo(){
 		success: function(respuesta){
 			for (var i = 0; i < respuesta.length; i++) {
 				var cargo = respuesta[i];
-				var fila ='<option value="'+cargo.IDESTADOCIVIL+'">'
-							+cargo.NOMBREESTADOCIVIL+'</option>';
+				var fila ='<option value="'+cargo.IDCARGO+'">'
+							+cargo.NOMBRECARGO+'</option>';
 
 				$("#slc-cargo").append(fila);
 			}
