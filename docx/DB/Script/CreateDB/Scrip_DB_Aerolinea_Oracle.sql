@@ -5395,3 +5395,124 @@ BEGIN
     
 
 END;
+
+
+/*PLSQL GESTION DE PAISES*/
+CREATE OR REPLACE PROCEDURE SP_PAIS(pnIdPais IN INTEGER,
+                                    pcNombrePais IN VARCHAR2,
+                                    pcNacionalidad IN VARCHAR2,
+                                    pcCodigoPostal IN VARCHAR2,
+                                    pbfFotoBandera IN BFILE,
+                                    pcAccion IN VARCHAR2,
+                                    pcMensaje OUT VARCHAR2,
+                                    pbError OUT BOOLEAN
+                                    )
+IS
+    /*declaracion de variables locales*/
+    vcMensaje VARCHAR2(2000);
+    vnConteo INTEGER;
+    vnUltimoId INTEGER;
+    
+BEGIN 
+    /*Inicializacion de variable*/
+    vnUltimoId:=0;
+    vcMensaje:='';
+    vnConteo:=0;
+    pbError:=TRUE;
+    
+    /*Validad el campo de accion*/
+    IF pcAccion='' OR pcAccion IS NULL THEN
+     pcMensaje:='Falta especifica accion';
+     RETURN;
+    END IF;
+    
+    IF pcAccion='INSERT' THEN
+        /*Validad campos*/
+        
+        IF pcNombrePais='' OR pcNombrePais IS NULL THEN
+            vcMensaje:=vcMensaje || 'nombrePais, ';
+        END IF;
+        
+        IF pcNacionalidad='' OR pcNacionalidad IS NULL THEN
+            vcMensaje:=vcMensaje || 'nacionalidad';
+        END IF;
+        
+        IF vcMensaje <> '' THEN 
+            pcMensaje:='Faltan parametros: ' || vcMensaje;
+            RETURN;
+        ELSE
+            SELECT MAX(idPais) INTO vnUltimoId FROM Pais;
+            vnUltimoId:=vnUltimoId+1;
+        
+            INSERT INTO PAIS(IDPAIS,NOMBREPAIS,NACIONALIDAD,CODIGOPOSTAL,FOTOBANDERA)
+                   VALUES (vnUltimoId,pcNombrePais,pcNacionalidad,pcCodigoPostal,pbfFotoBandera);
+                   
+            COMMIT;
+            
+            pbError:=FALSE;
+            
+            RETURN;
+        END IF;
+        
+        
+    END IF;
+    
+    IF pcAccion='UPDATE' THEN
+         /*Validar Campos Vacios*/
+        IF pnIdPais='' OR pnIdPais IS NULL THEN
+            vcMensaje:=vcMensaje || 'idPais, ';
+        END IF;
+        
+        IF pcNombrePais='' OR pcNombrePais IS NULL THEN
+            vcMensaje:=vcMensaje || 'nombrePais, ';
+        END IF;
+        
+        IF pcNacionalidad='' OR pcNacionalidad IS NULL THEN
+            vcMensaje:=vcMensaje || 'nacionalidad, ';
+        END IF;
+        
+        IF vcMensaje <> '' THEN
+            pcMensaje:='Faltan Parametros' || vcMensaje;
+            RETURN;
+        END IF;
+        
+        SELECT COUNT(*) INTO vnConteo FROM PAIS WHERE IDPAIS=pnIdPais;
+        
+        IF vnConteo=0 THEN 
+            pcMensaje:='IdPais no existe, no se puede actualizar';
+            RETURN;
+        ELSE
+            UPDATE PAIS SET NOMBREPAIS=pcNombrePais, NACIONALIDAD=pcNacionalidad,
+                            CODIGOPOSTAL=pcCodigoPostal ,FOTOBANDERA=pbfFotoBandera 
+                        WHERE IDPAIS=pnIdPais;
+            COMMIT;
+            pbError:=FALSE;
+            RETURN;
+        END IF;
+    END IF;
+    
+    IF pcAccion='DELETE' THEN
+     /*Validad Parametros Vacios*/
+     IF pnIdPais='' OR pnIdPais IS NULL THEN
+        vcMensaje:=vcMensaje || 'idPais';
+     END IF;
+     
+     IF vcMensaje <> '' THEN 
+        pcMensaje:='Faltan parametros: ' ||vcMensaje;
+     END IF;
+     
+     /*Validad que exista ID a eliminar*/
+     SELECT COUNT(*) INTO vnConteo FROM PAIS WHERE IDPAIS=pnIdPais;
+     
+     IF vnConteo=0 THEN
+        pcMensaje:='idPais no existe, imposible borrarlo';
+        RETURN;
+     ELSE
+        DELETE FROM PAIS WHERE IDPAIS=pnIdPais;
+        COMMIT;
+        pbError:=FALSE;
+        RETURN;
+     END IF;
+    
+    END IF;
+END;
