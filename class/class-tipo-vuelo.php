@@ -36,5 +36,18 @@
 				" NombreTipoVuelo: " . $this->nombreTipoVuelo . 
 				" Descripcion: " . $this->descripcion;
 		}
+
+		public static function listarTipoVuelo($objConexion){
+			$sql="SELECT IDTIPOVUELO,NOMBRETIPOVUELO
+				  FROM TIPOVUELO";
+		     $stid=$objConexion->ejecutarInstruccion($sql);
+
+				$tipoVuelos=array();
+				while($tipoVuelo=$objConexion->obtenerFila($stid)){
+				  $tipoVuelos[]=$tipoVuelo;
+
+				}
+			return $tipoVuelos;
+		}
 	}
 ?>

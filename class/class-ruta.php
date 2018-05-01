@@ -36,5 +36,17 @@
 				" AliasRuta: " . $this->aliasRuta . 
 				" TiempoPromedio: " . $this->tiempoPromedio;
 		}
+		public static function listarRuta($objConexion){
+			$sql="SELECT IDRUTA,ALIASRUTA
+				  FROM RUTA";
+		     $stid=$objConexion->ejecutarInstruccion($sql);
+
+				$rutas=array();
+				while($ruta=$objConexion->obtenerFila($stid)){
+				  $rutas[]=$ruta;
+
+				}
+			return $rutas;
+		}
 	}
 ?>

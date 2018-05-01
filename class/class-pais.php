@@ -58,7 +58,7 @@
 		}
 
 		public static function listarPais($objConexion){
-			$sql="SELECT IDPAIS,NOMBREPAIS
+			$sql="SELECT *
 				  FROM PAIS";
 		     $stid=$objConexion->ejecutarInstruccion($sql);
 
@@ -69,5 +69,6 @@
 				}
 			return $paises;
 		}
+
 	}
 ?>

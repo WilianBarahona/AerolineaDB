@@ -66,5 +66,28 @@
 				" Ruta_idRuta: " . $this->Ruta_idRuta . 
 				" TipoVuelo_idTipoVuelo: " . $this->TipoVuelo_idTipoVuelo;
 		}
+
+		public static function mostrarTodos($objConexion){
+			$sql="
+				SELECT *
+				FROM VUELO V
+				INNER JOIN AVION AV ON V.AVION_IDAVION=AV.IDAVION
+				INNER JOIN MARCA M ON AV.MARCA_IDMACA=M.IDMACA
+				INNER JOIN MODELO MD ON AV.MODELO_IDMODELO=MD.IDMODELO
+				INNER JOIN TIPOVUELO TV ON V.TIPOVUELO_IDTIPOVUELO=TV.IDTIPOVUELO
+				INNER JOIN RUTA R ON V.RUTA_IDRUTA=R.IDRUTA
+
+				";
+
+			$stid=$objConexion->ejecutarInstruccion($sql);
+
+			$vuelos=array();
+			while($vuelo=$objConexion->obtenerFila($stid)){
+			  $vuelos[]=$vuelo;
+
+			}
+		return $vuelos;
+
+		}
 	}
 ?>

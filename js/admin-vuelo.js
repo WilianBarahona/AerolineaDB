@@ -1,6 +1,9 @@
 $(document).ready(function(){
 	//Mostrar los pasajeros
-	$("#btn-actualizar-pasajero").hide();
+	$("#btn-actualizar-vuelo").hide();
+	listarAvion();
+	listarTipoVuelo();
+	listarRuta();
 	mostrarTodos();
 	
 })
@@ -8,7 +11,7 @@ $(document).ready(function(){
 
 function mostrarTodos(){
 	$.ajax({
-		url:"../ajax/gestionar-pasajeros.php",
+		url:"../ajax/gestionar-vuelos.php",
 		method:"POST",
 		dataType: "JSON",
 		data:{
@@ -16,21 +19,22 @@ function mostrarTodos(){
 		},
 		success: function(respuesta){
 			for (var i = 0; i < respuesta.length; i++) {
-				var pasajeros = respuesta[i];
+				var vuelos = respuesta[i];
+				console.log("ruta")
 				var fila = 
-				'<tr id="tbl-pasajeros-fila-' +pasajeros.IDPASAJERO+'">'+
-					  '<td>'+pasajeros.PNOMBRE +'</td>'+
-		              '<td>'+pasajeros.PAPELLIDO+'</td>'+
-		              '<td>'+pasajeros.DIRECCION+'</td>'+
-		              '<td>'+pasajeros.CORREO+'</td>'+
-		              '<td>'+pasajeros.NOMBREGENERO+'</td>'+
-		              '<td>'+pasajeros.NOMBREPAIS+'</td>'+
-		              '<td>'+pasajeros.NUMEROPASAPORTE+'</td>'+
+				'<tr id="tbl-vuelos-fila-' +vuelos.IDVUELO+'">'+
+					  '<td>'+vuelos.NOMBRETIPOVUELO+'</td>'+
+					  '<td>'+vuelos.ALIASRUTA+'</td>'+
+					  '<td>'+vuelos.REGISTRO+'</td>'+
+					  '<td>'+vuelos.NOMBREMARCA+'</td>'+
+					  '<td>'+vuelos.NOMBREMODELO+'</td>'+
+					  '<td>'+vuelos.FECHAHORAPARTIDA +'</td>'+
+		              '<td>'+vuelos.FECHAHORALLEGADA+'</td>'+
 		              '<td>'+
-		              '<button onclick="actualizarPasajero('+pasajeros.IDPASAJERO+')" class="btn btn-default btn-xs">'+
+		              '<button onclick="actualizarVuelo('+vuelos.IDPASAJERO+')" class="btn btn-default btn-xs">'+
 		               		'<span style="color:green;" class="glyphicon glyphicon-refresh"></span>'+
 		               '</button>'+
-		               '&nbsp&nbsp<button onclick="eliminarPasajero('+pasajeros.IDPASAJERO+')" class="btn btn-default btn-xs">'+
+		               '&nbsp&nbsp<button onclick="eliminarVuelo('+vuelos.IDPASAJERO+')" class="btn btn-default btn-xs">'+
 		               		'<span style="color:red;" class="glyphicon glyphicon-trash"></span>'+
 		               '</button>'+
 					  '</td>'+
@@ -44,16 +48,86 @@ function mostrarTodos(){
 		},
     	columns: [
 	        {data:'TipoVuelo'},
+	        {data:'Ruta'},
+	        {data:'RegistroAvion'},
+	        {data:'Marca'},
+	        {data:'Modelo'},
 			{data:'FechaPartida'},
 			{data:'FechaLlegada'},
-			{data:'TiempoPromedio'},
-			{data:'PesoMaximo(KG)'},
-			{data:'Marca'},
-			{data:'Modelo'},
 			{data:'Opciones'}
     	]
 	});
 }
+
+function listarAvion(){
+	$.ajax({
+		url:"../ajax/gestionar-vuelos.php",
+		method:"POST",
+		dataType: "JSON",
+		data:{
+			"accion":"listar-aviones"
+		},
+		success: function(respuesta){
+			for (var i = 0; i < respuesta.length; i++) {
+				var genero = respuesta[i];
+				var fila ='<option value="'+genero.IDAVION+'">'
+							+genero.REGISTRO+'</option>';
+
+				$("#slc-avion").append(fila);
+			}
+		},
+		error: function(e){
+		}
+	});
+
+}
+
+function listarTipoVuelo(){
+	$.ajax({
+		url:"../ajax/gestionar-vuelos.php",
+		method:"POST",
+		dataType: "JSON",
+		data:{
+			"accion":"listar-tipos-vuelos"
+		},
+		success: function(respuesta){
+			for (var i = 0; i < respuesta.length; i++) {
+				var genero = respuesta[i];
+				var fila ='<option value="'+genero.IDTIPOVUELO+'">'
+							+genero.NOMBRETIPOVUELO+'</option>';
+
+				$("#slc-tipo-vuelo").append(fila);
+			}
+		},
+		error: function(e){
+		}
+	});
+
+}
+
+function listarRuta(){
+	$.ajax({
+		url:"../ajax/gestionar-vuelos.php",
+		method:"POST",
+		dataType: "JSON",
+		data:{
+			"accion":"listar-rutas"
+		},
+		success: function(respuesta){
+			for (var i = 0; i < respuesta.length; i++) {
+				var genero = respuesta[i];
+				var fila ='<option value="'+genero.IDRUTA+'">'
+							+genero.ALIASRUTA+'</option>';
+
+				$("#slc-ruta").append(fila);
+			}
+		},
+		error: function(e){
+		}
+	});
+
+}
+
 
 
 function actualizarVuelo(idVuelo){

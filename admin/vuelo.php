@@ -11,7 +11,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Pasajero</title>
+  <title>Vuelos</title>
    <link rel="icon" href="../img/icon-page-html.png">
    <link rel="stylesheet" type="text/css" href="../css/all.css">
    <link rel="stylesheet" type="text/css" href="../css/jquery-data-table.css">
@@ -29,85 +29,46 @@
         <div class="container-fluid">
          <div class="row">
            
-           <h1><span class="glyphicon glyphicon-send">&nbsp</span>Vuelos</h1>
+           <h1><span class="glyphicon glyphicon-user">&nbsp</span>Vuelos</h1>
            <hr>
            
            <div class="col-md-12">
               <h3>Agregar Vuelo</h3>
               <table class="table table-striped">
                 <tr>
-                	<td><span style="color:red;font-weight: bold;">*&nbsp&nbsp</span>Primer Nombre</td>
-                	<td>
-                		<input type="text" id="txt-primer-nombre" class="form-control" placeholder="Primer Nombre">
-                	</td>
-                </tr>
-                <tr>
-                 <td>Segundo Nombre</td>
+                  <td><span style="color:red;font-weight: bold;">*&nbsp&nbsp</span>FechaHora Partida</td>
                   <td>
-                    <input type="text" id="txt-segundo-nombre" class="form-control" placeholder="Segundo Nombre">
+                    <input type="datetime-local" id="txt-fecha-hora-partida" class="form-control">
                   </td>
                 </tr>
                 <tr>
-                  <td><span style="color:red;font-weight: bold;">*&nbsp&nbsp</span>Primer Apellido</td>
+                  <td><span style="color:red;font-weight: bold;">*&nbsp&nbsp</span>FechaHora Llegada</td>
                   <td>
-                    <input type="text" id="txt-primer-apellido" class="form-control" placeholder="Primer Apellido">
+                    <input type="datetime-local" id="txt-fecha-hora-llegada" class="form-control">
                   </td>
                 </tr>
                 <tr>
-                 <td>Segundo Apellido</td>
+                  <td><span style="color:red;font-weight: bold;">*&nbsp&nbsp</span>Avion</td>
                   <td>
-                    <input type="text" id="txt-segundo-apellido" class="form-control" placeholder="Segundo Apellido">
-                  </td>
-                </tr>
-                <tr>
-                 <td><span style="color:red;font-weight: bold;">*&nbsp&nbsp</span>Direccion</td>
-                  <td>
-                    <input type="text" id="txt-direccion" class="form-control" placeholder="Direccion">
-                  </td>
-                </tr>
-                <tr>
-                 <td>Correo</td>
-                  <td>
-                    <input type="text" id="txt-correo" class="form-control" placeholder="Correo Electonico">
-                  </td>
-                </tr>
-                <tr>
-                  <td><span style="color:red;font-weight: bold;">*&nbsp&nbsp</span>Fecha de nacimiento</td>
-                  <td>
-                    <input class="form-control" type="date" id="txt-fecha-nacimiento">
-                  </td>
-                </tr>
-                <tr>
-                  <td><span style="color:red;font-weight: bold;">*&nbsp&nbsp</span>Estado Civil</td>
-                  <td>
-                   <select id="slc-estado-civil" class="form-control">
-                      <option>Seleccione una opcion</option>
-                      <option>estados2</option>
+                   <select id="slc-avion" class="form-control">
+                      <option value="0">Seleccione una opcion</option>
                     </select>
                   </td>
                 </tr>
                 <tr>
-                  <td><span style="color:red;font-weight: bold;">*&nbsp&nbsp</span>Genero</td>
+                  <td><span style="color:red;font-weight: bold;">*&nbsp&nbsp</span>Ruta</td>
                   <td>
-                    <select id="slc-genero" class="form-control">
-                      <option>Seleccione una opcion</option>
-                      <option>estados2</option>
+                    <select id="slc-ruta" class="form-control">
+                      <option value="0">Seleccione una opcion</option>
                     </select>
                   </td>
                 </tr>
                 <tr>
-                  <td><span style="color:red;font-weight: bold;">*&nbsp&nbsp</span>Pais</td>
+                  <td><span style="color:red;font-weight: bold;">*&nbsp&nbsp</span>Tipo De vuelo</td>
                   <td>
-                    <select id="slc-pais" class="form-control">
-                      <option>Seleccione una opcion</option>
-                      <option>estados2</option>
+                    <select id="slc-tipo-vuelo" class="form-control">
+                      <option value="0">Seleccione una opcion</option>
                     </select>
-                  </td>
-                </tr>
-                <tr>
-                 <td><span style="color:red;font-weight: bold;">*&nbsp&nbsp</span>No. Pasaporte</td>
-                  <td>
-                    <input type="text" id="txt-pasaporte" class="form-control" placeholder="No. Pasaporte">
                   </td>
                 </tr>
                 <tr>
@@ -119,15 +80,16 @@
               </table>
             </div>
              <div class="well col-md-12" id="div-vuelos">
+              <div id="div-test"></div>
               <table id="tbl-vuelos" class="table table-striped">
                 <thead>
                   <th>TipoVuelo</th>
-                  <th>FechaPartida</th>
-                  <th>FechaLlegada</th>
-                  <th>TiempoPromedio(H)</th>
-                  <th>PesoMaximo(KG)</th>
+                  <th>Ruta</th>
+                  <th>RegistroAvion</th>
                   <th>Marca</th>
                   <th>Modelo</th>
+                  <th>FechaPartida</th>
+                  <th>FechaLlegada</th>
                   <th>Opciones</th>
               </thead>
               <tbody></tbody>

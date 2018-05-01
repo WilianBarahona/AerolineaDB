@@ -66,5 +66,18 @@
 				" Marca_idMarca: " . $this->Marca_idMarca . 
 				" PesoMaximoEquipaje: " . $this->pesoMaximoEquipaje;
 		}
+
+		public static function listarAvion($objConexion){
+			$sql="SELECT IDAVION,REGISTRO
+				  FROM AVION";
+		     $stid=$objConexion->ejecutarInstruccion($sql);
+
+				$aviones=array();
+				while($avion=$objConexion->obtenerFila($stid)){
+				  $aviones[]=$avion;
+
+				}
+			return $aviones;
+		}
 	}
 ?>
