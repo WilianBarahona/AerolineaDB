@@ -5875,8 +5875,11 @@ BEGIN
             RETURN;
         END IF;
         
+        SELECT MAX(idEmpleado) INTO vnUltimoId FROM EMPLEADO;
+        vnUltimoId:=vnUltimoId+1;
+        
         INSERT INTO EMPLEADO(IDEMPLEADO,FECHAINGRESOAEROLINEA,PERSONA_IDPERSONA)
-        VALUES (pnIdEmpleado, pdFechaIngresoAerolinea,
+        VALUES (vnUltimoId, pdFechaIngresoAerolinea,
                 pnPersona_idPersona);
         COMMIT;
         pbError:=FALSE;
@@ -5978,4 +5981,129 @@ BEGIN
 
 END SP_EMPLEADO;
 /
+
+CREATE OR REPLACE PROCEDURE SP_TRIPULANTE(pnIdTripulante IN INTEGER,
+                                         pnEmpleado_idEmpleado IN INTEGER,
+                                         pcAccion IN VARCHAR2,
+                                         pcMensaje OUT VARCHAR2,
+                                         pbError OUT BOOLEAN)
+IS
+    /*DECLARACION DE VARIABLES*/
+    vcMensaje VARCHAR2(2000);
+    vnConteo INTEGER;
+    vnUltimoId INTEGER;
+    
+BEGIN
+  --INICIO TRANSACCION
+  --INICIALIZACION DE VARIABLES
+    vcMensaje:='';
+    vnConteo:=0;
+    pbError:=TRUE;
+    
+    --VALIDACION DE LA ACCION
+    IF pcAccion='' OR pcAccion IS NULL THEN
+        pcMensaje:='Accion no especificada';
+     RETURN;
+    END IF;
+    
+    IF pcAccion='INSERT' THEN 
+        --VALIDACIN DE CAMPOS VACIOS
+        IF pnEmpleado_idEmpleado='' OR pnEmpleado_idEmpleado IS NULL THEN
+            vcMensaje:=vcMensaje ||'EmpleadoIdEmpleado no ingresado';
+        END IF;
+        
+        IF vcMensaje <> '' THEN
+            pcMensaje:='Faltan parametros : ' || vcMensaje;
+            RETURN;
+        END IF;
+        
+        --validad la existencia de la llaves foraneas
+        SELECT COUNT(*) INTO vnConteo FROM EMPLEADO WHERE IDEMPLEADO=pnEmpleado_idEmpleado;
+        IF vnConteo=0 THEN 
+            pcMensaje:='Empleado no registrado';
+            RETURN;
+        END IF;
+        
+        SELECT MAX(IDTRIPULANTE) INTO vnUltimoId FROM TRIPULANTE;
+        vnUltimoId:=vnUltimoId+1;
+        
+        INSERT INTO TRIPULANTE(IDTRIPULANTE,EMPLEADO_IDEMPLEADO)
+        VALUES (vnUltimoId,pnEmpleado_idEmpleado);
+        COMMIT;
+        pbError:=FALSE;
+        pcMensaje:='Insert Tripulante Correctamente';
+        RETURN; 
+    END IF;
+    
+    IF pcAccion='UPDATE' THEN
+         --VALIDACIN DE CAMPOS VACIOS
+        IF pnIdTripulante='' OR pnIdTripulante IS NULL THEN
+            vcMensaje:=vcMensaje ||'idTripulante, ';
+        END IF;
+        
+        IF pnEmpleado_idEmpleado='' OR pnEmpleado_idEmpleado IS NULL THEN
+         vcMensaje:=vcMensaje ||'Empleado_idEmpleado';
+        END IF;
+        
+        IF vcMensaje <> '' THEN
+            pcMensaje:='Faltan parametros : ' || vcMensaje;
+            RETURN;
+        END IF;
+        
+        --validad la existencia de la llaves foraneas
+        SELECT COUNT(*) INTO vnConteo FROM EMPLEADO WHERE IDEMPLEADO=pnEmpleado_idEmpleado;
+        IF vnConteo=0 THEN 
+            pcMensaje:='Empleado no registrada';
+            RETURN;
+        END IF;
+        
+        --Validar que exista el idtripulante a actualizar
+        SELECT COUNT(*) INTO vnConteo FROM TRIPULANTE WHERE IDTRIPULANTE=pnIdTripulante;
+        IF vnConteo=0 THEN 
+            pcMensaje:='Tripulante no registrado no se puede actualizar';
+            RETURN;
+        END IF;
+        
+        
+        UPDATE TRIPULANTE
+        SET EMPLEADO_IDEMPLEADO=pnEmpleado_idEmpleado
+        WHERE IDTRIPULANTE=pnIdTripulante;
+        
+        COMMIT;
+        pbError:=FALSE;
+        pcMensaje:='Update de Tripulante exitoso';
+        RETURN;
+    END IF;
+    
+    IF pcAccion='DELETE' THEN 
+       --VALIDACIN DE CAMPOS VACIOS
+        IF pnIdTripulante='' OR pnIdTripulante IS NULL THEN
+            pcMensaje:='parametro no ingresado idTripulante';
+            RETURN;
+        END IF;
+        --VALIDAR QUE EL TRIPULANTE A ELIMINAR EN REALIDAD EXISTA
+        SELECT COUNT(*) INTO vnConteo FROM TRIPULANTE WHERE IDTRIPULANTE=pnIdTripulante;
+        IF vnConteo=0 THEN 
+            pcMensaje:='IdTripulante no existe no se puede eliminar registro';
+            RETURN;
+        END IF;
+        
+       /*DELETE TRIPULANTE*/
+        DELETE FROM TRIPULANTEXVUELO WHERE TRIPULANTE_IDTRIPULANTE=pnIdTripulante;
+        
+        DELETE FROM LICENCIA WHERE TRIPULANTE_IDTRIPULANTE=pnIdTripulante;
+                                                                        
+        DELETE FROM TRIPULANTE WHERE IDTRIPULANTE=pnIdTripulante;
+        
+        COMMIT;
+        pbError:=FALSE;
+        pcMensaje:='DELETE de Empleado exitoso';
+        RETURN;
+    END IF;
+
+END SP_TRIPULANTE;
+/
+
+
+
 
