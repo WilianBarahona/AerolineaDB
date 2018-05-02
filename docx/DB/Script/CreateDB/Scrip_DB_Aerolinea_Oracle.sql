@@ -6097,13 +6097,316 @@ BEGIN
         
         COMMIT;
         pbError:=FALSE;
-        pcMensaje:='DELETE de Empleado exitoso';
+        pcMensaje:='DELETE de TRIPULANTE exitoso';
         RETURN;
     END IF;
 
 END SP_TRIPULANTE;
 /
 
+/*PLSQL PARA GESTIONAR PASAJEROS UPDATE,DELETE AND INSERT*/
+CREATE OR REPLACE PROCEDURE SP_PASAJERO(pnIdPasajero IN INTEGER,
+                                        pnPersona_idPersona IN INTEGER,
+                                        pbfFotoPerfil IN BFILE,
+                                        pcNumeroPasaporte IN VARCHAR2,
+                                        pcAccion IN VARCHAR2,
+                                        pcMensaje OUT VARCHAR2,
+                                        pbError OUT BOOLEAN)
+IS
+    /*DECLARACION DE VARIABLES*/
+    vcMensaje VARCHAR2(2000);
+    vnConteo INTEGER;
+    vnUltimoId INTEGER;
+    
+BEGIN
+  --INICIO TRANSACCION
+  --INICIALIZACION DE VARIABLES
+    vcMensaje:='';
+    vnConteo:=0;
+    pbError:=TRUE;
+    
+    --VALIDACION DE LA ACCION
+    IF pcAccion='' OR pcAccion IS NULL THEN
+        pcMensaje:='Accion no especificada';
+     RETURN;
+    END IF;
+    
+    IF pcAccion='INSERT' THEN 
+        --VALIDACIN DE CAMPOS VACIOS
+        IF pnPersona_idPersona='' OR pnPersona_idPersona IS NULL THEN
+            vcMensaje:=vcMensaje ||'Persona_idPersona,';
+        END IF;
+        
+        IF pcNumeroPasaporte='' OR pcNumeroPasaporte IS NULL THEN
+            vcMensaje:=vcMensaje ||'numeroPasaporte';
+        END IF;
+        
+        IF vcMensaje <> '' THEN
+            pcMensaje:='Faltan parametros : ' || vcMensaje;
+            RETURN;
+        END IF;
+        
+        --validad la existencia de la llaves foraneas
+        SELECT COUNT(*) INTO vnConteo FROM PERSONA WHERE IDPERSONA=pnPersona_idPersona;
+        IF vnConteo=0 THEN 
+            pcMensaje:='Persona no registrado';
+            RETURN;
+        END IF;
+        
+        SELECT MAX(IDPASAJERO) INTO vnUltimoId FROM PASAJERO;
+        vnUltimoId:=vnUltimoId+1;
+        
+        INSERT INTO PASAJERO(IDPASAJERO,PERSONA_IDPERSONA,FOTOPERFIL,NUMEROPASAPORTE)
+        VALUES (vnUltimoId,pnPersona_idPersona,pbfFotoPerfil,pcNumeroPasaporte);
+        COMMIT;
+        pbError:=FALSE;
+        pcMensaje:='Insert Pasajero Correctamente';
+        RETURN; 
+    END IF;
+    
+    IF pcAccion='UPDATE' THEN
+         --VALIDACIN DE CAMPOS VACIOS
+         IF pnIdPasajero='' OR pnIdPasajero IS NULL THEN
+            vcMensaje:=vcMensaje ||'idPasajero,';
+        END IF;
+        
+        IF pnPersona_idPersona='' OR pnPersona_idPersona IS NULL THEN
+            vcMensaje:=vcMensaje ||'Persona_idPersona,';
+        END IF;
+        
+        IF pcNumeroPasaporte='' OR pcNumeroPasaporte IS NULL THEN
+            vcMensaje:=vcMensaje ||'numeroPasaporte';
+        END IF;
+        
+        IF vcMensaje <> '' THEN
+            pcMensaje:='Faltan parametros : ' || vcMensaje;
+            RETURN;
+        END IF;
+        
+        --validad la existencia de la llaves foraneas
+        SELECT COUNT(*) INTO vnConteo FROM PERSONA WHERE IDPERSONA=pnPersona_idPersona;
+        IF vnConteo=0 THEN 
+            pcMensaje:='Persona no registrado';
+            RETURN;
+        END IF;
+        
+        --Validar que exista el idpasajero a actualizar
+        SELECT COUNT(*) INTO vnConteo FROM PASAJERO WHERE IDPASAJERO=pnIdPasajero;
+        IF vnConteo=0 THEN 
+            pcMensaje:='Pasajero no registrado imposible actualizar';
+            RETURN;
+        END IF;
+        
+        
+        UPDATE PASAJERO
+        SET Persona_idPersona=pnPersona_idPersona, fotoPerfil=pbfFotoPerfil, numeroPasaporte=pcNumeroPasaporte
+        WHERE IDPASAJERO=pnIdPasajero;
+        
+        COMMIT;
+        pbError:=FALSE;
+        pcMensaje:='Update de Pasajero exitoso';
+        RETURN;
+    END IF;
+    
+    IF pcAccion='DELETE' THEN 
+         --VALIDACIN DE CAMPOS VACIOS
+         IF pnIdPasajero='' OR pnIdPasajero IS NULL THEN
+            vcMensaje:=vcMensaje ||'idPasajero,';
+        END IF;
+        
+        --VALIDAR QUE EL PASAJERO A ELIMINAR EN REALIDAD EXISTA
+        SELECT COUNT(*) INTO vnConteo FROM PASAJERO WHERE IDPASAJERO=pnIdPasajero;
+        IF vnConteo=0 THEN 
+            pcMensaje:='Pasajero no registrado imposible eliminar';
+            RETURN;
+        END IF;
+        
+       /*DELETE PASAJERO*/
+        DELETE FROM FACTURADETALLE WHERE FACTURA_IDFACTURA IN (SELECT FACTURA_IDFACTURA
+                                                                FROM FACTURADETALLE 
+                                                                WHERE Pasajero_idPasajero=pnIdPasajero);
+        
+        DELETE FROM EQUIPAJE WHERE PASAJERO_IDPASAJERO=pnIdPasajero;
+                                                            
+        DELETE FROM PASAJERO WHERE IDPASAJERO=pnIdPasajero;
+        
+        COMMIT;
+        pbError:=FALSE;
+        pcMensaje:='DELETE de PASAJERO exitoso';
+        RETURN;
+    END IF;
 
+END SP_PASAJERO;
+/
 
+/*PLSQL PARA GESTIONAR MARCAS DE AVIONES UPDATE,INSERT*/
+CREATE OR REPLACE PROCEDURE SP_MARCA(pnIdMarca IN INTEGER,
+                                     pcNombreMarca IN INTEGER,
+                                     pcAccion IN VARCHAR2,
+                                     pcMensaje OUT VARCHAR2,
+                                     pbError OUT BOOLEAN)
+IS
+    /*DECLARACION DE VARIABLES*/
+    vcMensaje VARCHAR2(2000);
+    vnConteo INTEGER;
+    vnUltimoId INTEGER;
+    
+BEGIN
+  --INICIO TRANSACCION
+  --INICIALIZACION DE VARIABLES
+    vcMensaje:='';
+    vnConteo:=0;
+    pbError:=TRUE;
+    
+    --VALIDACION DE LA ACCION
+    IF pcAccion='' OR pcAccion IS NULL THEN
+        pcMensaje:='Accion no especificada';
+     RETURN;
+    END IF;
+    
+    IF pcAccion='INSERT' THEN 
+        --VALIDACIN DE CAMPOS VACIOS
+        IF pcNombreMarca='' OR pcNombreMarca IS NULL THEN
+            vcMensaje:=vcMensaje ||'NombreMarca';
+        END IF;
+            
+        IF vcMensaje <> '' THEN
+            pcMensaje:='Faltan parametros : ' || vcMensaje;
+            RETURN;
+        END IF;
+        
+        
+        SELECT MAX(IDMACA) INTO vnUltimoId FROM MARCA;
+        vnUltimoId:=vnUltimoId+1;
+        
+        INSERT INTO MARCA(IDMACA,NOMBREMARCA)
+        VALUES (vnUltimoId,pcNombreMarca);
+        COMMIT;
+        pbError:=FALSE;
+        pcMensaje:='Insert Marca Correctamente';
+        RETURN; 
+    END IF;
+    
+    IF pcAccion='UPDATE' THEN
+         --VALIDACIN DE CAMPOS VACIOS
+         IF pnIdMarca='' OR pnIdMarca IS NULL THEN
+            vcMensaje:=vcMensaje ||'idMarca,';
+        END IF;
+        
+        IF pcNombreMarca='' OR pcNombreMarca IS NULL THEN
+            vcMensaje:=vcMensaje ||'nombreMarca,';
+        END IF;
+        
+        IF vcMensaje <> '' THEN
+            pcMensaje:='Faltan parametros : ' || vcMensaje;
+            RETURN;
+        END IF;
+        
+        
+        --Validar que exista el idMarca a actualizar
+        SELECT COUNT(*) INTO vnConteo FROM MARCA WHERE IDMACA=pnIdMarca;
+        IF vnConteo=0 THEN 
+            pcMensaje:='Marca no registrado imposible actualizar';
+            RETURN;
+        END IF;
+        
+        
+        UPDATE MARCA
+        SET NOMBREMARCA=pcNombreMarca
+        WHERE IDMACA=pnIdMarca;
+        
+        COMMIT;
+        pbError:=FALSE;
+        pcMensaje:='Update de Marca exitoso';
+        RETURN;
+    END IF;
+    
+END SP_MARCA;
+/
 
+/*PLSQL PARA GESTIONAR MODELOS DE AVIONS UPDATE, INSERT*/
+CREATE OR REPLACE PROCEDURE SP_MODELO(pnIdModelo IN INTEGER,
+                                     pcNombreModelo IN INTEGER,
+                                     pcAccion IN VARCHAR2,
+                                     pcMensaje OUT VARCHAR2,
+                                     pbError OUT BOOLEAN)
+IS
+    /*DECLARACION DE VARIABLES*/
+    vcMensaje VARCHAR2(2000);
+    vnConteo INTEGER;
+    vnUltimoId INTEGER;
+    
+BEGIN
+  --INICIO TRANSACCION
+  --INICIALIZACION DE VARIABLES
+    vcMensaje:='';
+    vnConteo:=0;
+    pbError:=TRUE;
+    
+    --VALIDACION DE LA ACCION
+    IF pcAccion='' OR pcAccion IS NULL THEN
+        pcMensaje:='Accion no especificada';
+     RETURN;
+    END IF;
+    
+    IF pcAccion='INSERT' THEN 
+        --VALIDACIN DE CAMPOS VACIOS
+        IF pcNombreModelo='' OR pcNombreModelo IS NULL THEN
+            vcMensaje:=vcMensaje ||'NombreModelo';
+        END IF;
+            
+        IF vcMensaje <> '' THEN
+            pcMensaje:='Faltan parametros : ' || vcMensaje;
+            RETURN;
+        END IF;
+        
+        
+        SELECT MAX(IDMODELO) INTO vnUltimoId FROM MODELO;
+        vnUltimoId:=vnUltimoId+1;
+        
+        INSERT INTO MODELO(IDMODELO,NOMBREMODELO)
+        VALUES (vnUltimoId,pcNombreModelo);
+        COMMIT;
+        pbError:=FALSE;
+        pcMensaje:='INSERT Modelo Correctamente';
+        RETURN; 
+    END IF;
+    
+    IF pcAccion='UPDATE' THEN
+         --VALIDACIN DE CAMPOS VACIOS
+         IF pnIdModelo='' OR pnIdModelo IS NULL THEN
+            vcMensaje:=vcMensaje ||'idModelo,';
+        END IF;
+        
+        IF pcNombreModelo='' OR pcNombreModelo IS NULL THEN
+            vcMensaje:=vcMensaje ||'nombreModelo,';
+        END IF;
+        
+        IF vcMensaje <> '' THEN
+            pcMensaje:='Faltan parametros : ' || vcMensaje;
+            RETURN;
+        END IF;
+        
+        
+        --Validar que exista el idMarca a actualizar
+        SELECT COUNT(*) INTO vnConteo FROM MODELO WHERE IDMODELO=pnIdModelo;
+        IF vnConteo=0 THEN 
+            pcMensaje:='Modelo no registrado imposible actualizar';
+            RETURN;
+        END IF;
+        
+        
+        UPDATE MODELO
+        SET NOMBREMODELO=pcNombreModelo
+        WHERE IDMODELO=pnIdModelo;
+        
+        COMMIT;
+        pbError:=FALSE;
+        pcMensaje:='UPDATE de modelo exitoso';
+        RETURN;
+    END IF;
+    
+END SP_MODELO;
+/
+
+COMMIT;
