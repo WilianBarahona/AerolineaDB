@@ -2,8 +2,8 @@
 
 	class Conexion{
 
-		private $usuario="TEST_AEROLINEA2";
-		private $contrasena="ASD.456";
+		private $usuario="TEST_AEROLINEA";
+		private $contrasena="asd.456";
 		private $host="localhost";
 		private $baseDatos="localhost/XE";
 		private $puerto="1521";
