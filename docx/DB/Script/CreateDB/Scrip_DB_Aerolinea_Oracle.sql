@@ -5520,3 +5520,462 @@ END SP_PAIS;
 /
 
 
+/*PLSQL PARA GESTIONAR PERSONAS UPDATE,DELETE AND INSERT*/
+--Validar unique correo que no se repita el correo
+CREATE OR REPLACE PROCEDURE SP_PERSONA(
+                                        pnIdPersona IN INTEGER,
+                                        pcPNombre IN VARCHAR2,
+                                        pcSNombre IN VARCHAR2,
+                                        pcPApellido IN VARCHAR2,
+                                        pcSApellido IN VARCHAR2,
+                                        pcDireccion IN VARCHAR2,
+                                        pcCorreo IN VARCHAR2,
+                                        pcPassword IN VARCHAR2,
+                                        pdFechaNacimiento IN DATE,
+                                        pcEstadoCuenta IN VARCHAR2,
+                                        pcTipoCuenta IN VARCHAR2,
+                                        pdFechaHoraRegistro IN DATE,
+                                        pnEstadoCivil_idEstadoCivil IN INTEGER,
+                                        pnGenero_idGenero IN INTEGER,
+                                        pnPais_idPais IN INTEGER,
+                                        pcAccion IN VARCHAR2,
+                                        pcMensaje OUT VARCHAR2,
+                                        pbError OUT BOOLEAN
+                                    )
+
+IS
+    /*DECLARACION DE VARIABLES*/
+    vcMensaje VARCHAR2(2000);
+    vnConteo INTEGER;
+    vnUltimoId INTEGER;
+    
+BEGIN 
+    /*INICIO TRANSACCION*/
+    
+    /*INICIALIZACION DE VARIABLES*/
+    vcMensaje:='';
+    vnConteo:=0;
+    pbError:=TRUE;
+    
+    /*VALIDACION DE LA ACCION A REALIZAR(UPDATE,INSERT,DELETE)*/
+    IF pcAccion='' OR pcAccion IS NULL THEN
+     pcMensaje:='Accion a realizar no especificada';
+     RETURN;
+    END IF;
+    
+    IF pcAccion='INSERT' THEN
+        /*VALIDAR CAMPOS VACIOS*/ 
+        IF pcPNombre='' OR pcPNombre IS NULL THEN
+            vcMensaje:=vcMensaje || 'pNombre, ';
+        END IF;
+    
+        IF pcPApellido='' OR pcPApellido IS NULL THEN
+            vcMensaje:=vcMensaje || 'pApellido, ';
+        END IF;
+        
+        IF pcDireccion='' OR pcDireccion IS NULL THEN
+            vcMensaje:=vcMensaje || 'direccion, ';
+        END IF;
+        
+        IF pdFechaNacimiento='' OR pdFechaNacimiento IS NULL THEN
+            vcMensaje:=vcMensaje || 'fechaNacimiento, ';
+        END IF;
+        
+        IF pnEstadoCivil_idEstadoCivil='' OR pnEstadoCivil_idEstadoCivil IS NULL THEN
+            vcMensaje:=vcMensaje || 'EstadoCivil_idEstadoCivil, ';
+        END IF;   
+        
+        IF pnGenero_idGenero='' OR pnGenero_idGenero IS NULL THEN
+            vcMensaje:=vcMensaje || 'Genero_idGenero, ';
+        END IF;   
+        
+        IF pnPais_idPais='' OR pnPais_idPais IS NULL THEN
+            vcMensaje:=vcMensaje || 'Pais_idPais';
+        END IF; 
+        
+        IF vcMensaje <> '' THEN
+            pcMensaje:='Faltan parametros obligatorios para insertar registro: ' || vcMensaje;
+            RETURN;
+        END IF;
+        
+        /*VALIDAR LLAVES FORANEAS EXISTENTES*/
+        SELECT COUNT(*) INTO vnConteo FROM ESTADOCIVIL WHERE idEstadoCivil=pnEstadoCivil_idEstadoCivil;
+        IF vnConteo=0 THEN 
+          pcMensaje:='EstadoCivil no registrado';
+          RETURN;
+        END IF;
+        
+        SELECT COUNT(*) INTO vnConteo FROM GENERO WHERE idGenero=pnGenero_idGenero;
+        IF vnConteo=0 THEN 
+          pcMensaje:='Genero no registrado';
+          RETURN;
+        END IF;
+        
+        SELECT COUNT (*) INTO vnConteo FROM PAIS WHERE idPais=pnPais_idPais;
+         IF vnConteo=0 THEN 
+          pcMensaje:='Pais no registrado';
+          RETURN;
+        END IF;
+        
+        SELECT MAX(idPersona) INTO vnUltimoId FROM PERSONA;
+        vnUltimoId:=vnUltimoId+1;
+        
+        INSERT INTO PERSONA(idPersona, pNombre, sNombre, pApellido, sApellido, direccion,
+                            correo, password, fechaNacimiento, estadoCuenta, TipoCuenta,
+                            fechaHoraRegistro, EstadoCivil_idEstadoCivil, Genero_idGenero,
+                            Pais_idPais )
+            VALUES(vnUltimoId, pcPNombre, pcSNombre, pcPApellido,
+                    pcSApellido, pcDireccion, pcCorreo, pcPassword, 
+                    pdFechaNacimiento, pcEstadoCuenta, pcTipoCuenta, 
+                    pdFechaHoraRegistro, pnEstadoCivil_idEstadoCivil, 
+                    pnGenero_idGenero, pnPais_idPais);
+        COMMIT;
+        pbError:=FALSE;
+        pcMensaje:='Insercion Exitosa de persona';
+        RETURN;
+        
+    END IF;
+    
+    IF pcAccion='UPDATE' THEN
+       /*VALIDAR CAMPOS VACIOS*/ 
+        IF pnIdPersona='' OR pnIdPersona IS NULL THEN 
+            vcMensaje:=vcMensaje || 'idPesona, ';
+        END IF;
+        IF pcPNombre='' OR pcPNombre IS NULL THEN
+            vcMensaje:=vcMensaje || 'pNombre, ';
+        END IF;
+    
+        IF pcPApellido='' OR pcPApellido IS NULL THEN
+            vcMensaje:=vcMensaje || 'pApellido, ';
+        END IF;
+        
+        IF pcDireccion='' OR pcDireccion IS NULL THEN
+            vcMensaje:=vcMensaje || 'direccion, ';
+        END IF;
+        
+        IF pdFechaNacimiento='' OR pdFechaNacimiento IS NULL THEN
+            vcMensaje:=vcMensaje || 'fechaNacimiento, ';
+        END IF;
+        
+        IF pnEstadoCivil_idEstadoCivil='' OR pnEstadoCivil_idEstadoCivil IS NULL THEN
+            vcMensaje:=vcMensaje || 'EstadoCivil_idEstadoCivil, ';
+        END IF;   
+        
+        IF pnGenero_idGenero='' OR pnGenero_idGenero IS NULL THEN
+            vcMensaje:=vcMensaje || 'Genero_idGenero, ';
+        END IF;   
+        
+        IF pnPais_idPais='' OR pnPais_idPais IS NULL THEN
+            vcMensaje:=vcMensaje || 'Pais_idPais';
+        END IF; 
+        
+        IF vcMensaje <> '' THEN
+            pcMensaje:='Faltan parametros obligatorios para insertar registro: ' || vcMensaje;
+            RETURN;
+        END IF;
+        
+        /*VALIDAR LLAVES FORANEAS EXISTENTES*/
+        SELECT COUNT(*) INTO vnConteo FROM PERSONA WHERE idPersona=pnIdPersona;
+        IF vnConteo=0 THEN
+            pcMensaje:='No existe la persona que se quiere actualizar';
+            RETURN;
+        END IF;
+        
+        SELECT COUNT(*) INTO vnConteo FROM ESTADOCIVIL WHERE idEstadoCivil=pnEstadoCivil_idEstadoCivil;
+        IF vnConteo=0 THEN 
+          pcMensaje:='EstadoCivil no registrado';
+          RETURN;
+        END IF;
+        
+        SELECT COUNT(*) INTO vnConteo FROM GENERO WHERE idGenero=pnGenero_idGenero;
+        IF vnConteo=0 THEN 
+          pcMensaje:='Genero no registrado';
+          RETURN;
+        END IF;
+        
+        SELECT COUNT (*) INTO vnConteo FROM PAIS WHERE idPais=pnPais_idPais;
+         IF vnConteo=0 THEN 
+          pcMensaje:='Pais no registrado';
+          RETURN;
+        END IF;
+        
+        
+        UPDATE PERSONA
+        SET pNombre=pcPNombre, sNombre=pcSNombre, 
+            pApellido=pcPApellido, sApellido=pcSApellido, direccion=pcDireccion,
+            correo=pcCorreo, password=pcPassword, fechaNacimiento=pdFechaNacimiento, 
+            estadoCuenta=pcEstadoCuenta, TipoCuenta=pcTipoCuenta,
+            fechaHoraRegistro=pdFechaHoraRegistro, EstadoCivil_idEstadoCivil=pnEstadoCivil_idEstadoCivil,
+            Genero_idGenero=pnGenero_idGenero,Pais_idPais=pnPais_idPais
+            WHERE IDPERSONA=pnIdPersona;
+        COMMIT;
+        pbError:=FALSE;
+        pcMensaje:='Actualizacion Exitosa de persona';
+        RETURN;
+    END IF;
+    
+    IF pcAccion='DELETE' THEN
+       IF pnIdPersona='' OR pnIdPersona IS NULL THEN
+         vcMensaje:='idPersona';
+       END IF;
+       
+       IF vcMensaje <> '' THEN
+         pcMensaje:='Faltan parametros: ' || vcMensaje;
+         RETURN;
+       END IF;
+       
+       /*Comprobar que exista el idPersona*/
+       SELECT COUNT(*) INTO vnConteo FROM PERSONA WHERE IDPERSONA=pnIdPersona;
+       
+       IF vnConteo=0 THEN
+            pcMensaje:='No existe la persona a eliminar';
+       ELSE
+        /*SCRIPT PARA ELIMINAR PERSONA*/
+
+            /*DELETE PASAJERO*/
+            DELETE FROM FACTURADETALLE WHERE FACTURA_IDFACTURA IN (SELECT FACTURA_IDFACTURA
+                                                                    FROM FACTURADETALLE 
+                                                                    WHERE Pasajero_idPasajero=(SELECT PJ.IDPASAJERO 
+                                                                                                FROM PERSONA P
+                                                                                                INNER JOIN PASAJERO PJ ON P.IDPERSONA=PJ.PERSONA_IDPERSONA
+                                                                                                WHERE P.IDPERSONA=pnIdPersona));
+            
+            DELETE FROM EQUIPAJE WHERE PASAJERO_IDPASAJERO IN (SELECT PJ.IDPASAJERO 
+                                                                FROM PERSONA P
+                                                                INNER JOIN PASAJERO PJ ON P.IDPERSONA=PJ.PERSONA_IDPERSONA
+                                                                WHERE P.IDPERSONA=pnIdPersona);
+                                                                
+            DELETE FROM PASAJERO WHERE PERSONA_IDPERSONA=pnIdPersona;
+            
+            
+            /*DELETE EMPLEADO*/
+            DELETE FROM EMPLEADOXCARGO WHERE EMPLEADO_IDEMPLEADO IN (SELECT E.IDEMPLEADO
+                                                                    FROM EMPLEADO E
+                                                                    INNER JOIN PERSONA P ON E.PERSONA_IDPERSONA=P.IDPERSONA
+                                                                    WHERE E.PERSONA_IDPERSONA=pnIdPersona);
+                                                                    
+            DELETE FROM EMPLEADOXJEFE WHERE EMPLEADO_IDJEFE IN (SELECT E.IDEMPLEADO
+                                                        FROM EMPLEADO E
+                                                        INNER JOIN PERSONA P ON E.PERSONA_IDPERSONA=P.IDPERSONA
+                                                        WHERE E.PERSONA_IDPERSONA=pnIdPersona);
+            
+            DELETE FROM EMPLEADOXJEFE WHERE EMPLEADO_IDEMPLEADO IN (SELECT E.IDEMPLEADO
+                                                                    FROM EMPLEADO E
+                                                                    INNER JOIN PERSONA P ON E.PERSONA_IDPERSONA=P.IDPERSONA
+                                                                    WHERE E.PERSONA_IDPERSONA=pnIdPersona);
+            
+            DELETE FROM BONO WHERE EMPLEADO_IDEMPLEADO IN (SELECT E.IDEMPLEADO
+                                                                    FROM EMPLEADO E
+                                                                    INNER JOIN PERSONA P ON E.PERSONA_IDPERSONA=P.IDPERSONA
+                                                                    WHERE E.PERSONA_IDPERSONA=pnIdPersona); 
+                                                                    
+            DELETE FROM DEDUCCION WHERE EMPLEADO_IDEMPLEADO IN (SELECT E.IDEMPLEADO
+                                                                    FROM EMPLEADO E
+                                                                    INNER JOIN PERSONA P ON E.PERSONA_IDPERSONA=P.IDPERSONA
+                                                                    WHERE E.PERSONA_IDPERSONA=pnIdPersona);
+                                                                    
+             DELETE FROM EMPLEADOXPLANILLA WHERE EMPLEADO_IDEMPLEADO IN (SELECT E.IDEMPLEADO
+                                                                    FROM EMPLEADO E
+                                                                    INNER JOIN PERSONA P ON E.PERSONA_IDPERSONA=P.IDPERSONA
+                                                                    WHERE E.PERSONA_IDPERSONA=pnIdPersona);   
+                                                                    
+             DELETE FROM ANTICIPO WHERE EMPLEADO_IDEMPLEADO IN (SELECT E.IDEMPLEADO
+                                                                    FROM EMPLEADO E
+                                                                    INNER JOIN PERSONA P ON E.PERSONA_IDPERSONA=P.IDPERSONA
+                                                                    WHERE E.PERSONA_IDPERSONA=pnIdPersona);  
+            
+            DELETE FROM TRIPULANTEXVUELO WHERE TRIPULANTE_IDTRIPULANTE IN (SELECT T.IDTRIPULANTE
+                                                                            FROM EMPLEADO E
+                                                                            INNER JOIN PERSONA P ON E.PERSONA_IDPERSONA=P.IDPERSONA
+                                                                            INNER JOIN TRIPULANTE T ON E.IDEMPLEADO=T.EMPLEADO_IDEMPLEADO 
+                                                                            WHERE P.IDPERSONA=pnIdPersona);
+            
+            DELETE FROM LICENCIA WHERE TRIPULANTE_IDTRIPULANTE IN (SELECT T.IDTRIPULANTE
+                                                                            FROM EMPLEADO E
+                                                                            INNER JOIN PERSONA P ON E.PERSONA_IDPERSONA=P.IDPERSONA
+                                                                            INNER JOIN TRIPULANTE T ON E.IDEMPLEADO=T.EMPLEADO_IDEMPLEADO 
+                                                                            WHERE P.IDPERSONA=pnIdPersona);
+                                                                            
+            DELETE FROM TRIPULANTE WHERE IDTRIPULANTE IN (SELECT T.IDTRIPULANTE
+                                                                            FROM EMPLEADO E
+                                                                            INNER JOIN PERSONA P ON E.PERSONA_IDPERSONA=P.IDPERSONA
+                                                                            INNER JOIN TRIPULANTE T ON E.IDEMPLEADO=T.EMPLEADO_IDEMPLEADO 
+                                                                            WHERE P.IDPERSONA=pnIdPersona);
+                                                                                                        
+            DELETE FROM EMPLEADO WHERE IDEMPLEADO IN (SELECT E.IDEMPLEADO
+                                                                    FROM EMPLEADO E
+                                                                    INNER JOIN PERSONA P ON E.PERSONA_IDPERSONA=P.IDPERSONA
+                                                                    WHERE E.PERSONA_IDPERSONA=pnIdPersona); 
+                                                                    
+                
+            /*ELIMINAR PERSONA*/    
+            DELETE FROM TELEFONO WHERE IDTELEFONO IN (SELECT T.IDTELEFONO
+                                                    FROM TELEFONO T
+                                                    INNER JOIN PERSONA P ON T.PERSONA_IDPERSONA=P.IDPERSONA
+                                                    WHERE T.PERSONA_IDPERSONA=pnIdPersona); 
+                                                    
+            DELETE FROM PERSONA WHERE IDPERSONA=pnIdPersona;
+            
+            COMMIT;
+            pbError:=FALSE;
+            pcMensaje:='Eliminado con exito';
+            RETURN;
+       END IF;
+       
+    END IF;
+    
+END SP_PERSONA;
+/
+
+
+/*PLSQL PARA GESTIONAR EMPLEADOS UPDATE,CREATE,DELETE*/
+CREATE OR REPLACE PROCEDURE SP_EMPLEADO(pnIdEmpleado IN INTEGER,
+                                         pdFechaIngresoAerolinea IN DATE,
+                                         pnPersona_idPersona IN INTEGER,
+                                         pcAccion IN VARCHAR2,
+                                         pcMensaje OUT VARCHAR2,
+                                         pbError OUT BOOLEAN)
+IS
+    /*DECLARACION DE VARIABLES*/
+    vcMensaje VARCHAR2(2000);
+    vnConteo INTEGER;
+    vnUltimoId INTEGER;
+    
+BEGIN
+  --INICIO TRANSACCION
+  --INICIALIZACION DE VARIABLES
+    vcMensaje:='';
+    vnConteo:=0;
+    pbError:=TRUE;
+    
+    --VALIDACION DE LA ACCION
+    IF pcAccion='' OR pcAccion IS NULL THEN
+        pcMensaje:='Accion no especificada';
+     RETURN;
+    END IF;
+    
+    IF pcAccion='INSERT' THEN 
+        --VALIDACIN DE CAMPOS VACIOS
+        IF pdFechaIngresoAerolinea='' OR pdFechaIngresoAerolinea IS NULL THEN
+         vcMensaje:=vcMensaje ||'fecha ingreso a la aerolinea, ';
+        END IF;
+        IF pnPersona_idPersona='' OR pnPersona_idPersona IS NULL THEN
+            vcMensaje:=vcMensaje ||'fecha ingreso a la aerolinea, ';
+        END IF;
+        
+        IF vcMensaje <> '' THEN
+            pcMensaje:='Faltan parametros : ' || vcMensaje;
+            RETURN;
+        END IF;
+        
+        --validad la existencia de la llaves foraneas
+        SELECT COUNT(*) INTO vnConteo FROM PERSONA WHERE IDPERSONA=pnPersona_idPersona;
+        IF vnConteo=0 THEN 
+            pcMensaje:='Persona no registrada';
+            RETURN;
+        END IF;
+        
+        INSERT INTO EMPLEADO(IDEMPLEADO,FECHAINGRESOAEROLINEA,PERSONA_IDPERSONA)
+        VALUES (pnIdEmpleado, pdFechaIngresoAerolinea,
+                pnPersona_idPersona);
+        COMMIT;
+        pbError:=FALSE;
+        pcMensaje:='Insert Empleado Correctamente';
+        RETURN; 
+    END IF;
+    
+    IF pcAccion='UPDATE' THEN
+         --VALIDACIN DE CAMPOS VACIOS
+        IF pnIdEmpleado='' OR pnIdEmpleado IS NULL THEN
+            vcMensaje:=vcMensaje ||'idEmpleado, ';
+        END IF;
+        
+        IF pdFechaIngresoAerolinea='' OR pdFechaIngresoAerolinea IS NULL THEN
+         vcMensaje:=vcMensaje ||'fecha ingreso a la aerolinea, ';
+        END IF;
+        IF pnPersona_idPersona='' OR pnPersona_idPersona IS NULL THEN
+            vcMensaje:=vcMensaje ||'fecha ingreso a la aerolinea, ';
+        END IF;
+        
+        IF vcMensaje <> '' THEN
+            pcMensaje:='Faltan parametros : ' || vcMensaje;
+            RETURN;
+        END IF;
+        
+        --validad la existencia de la llaves foraneas
+        SELECT COUNT(*) INTO vnConteo FROM PERSONA WHERE IDPERSONA=pnPersona_idPersona;
+        IF vnConteo=0 THEN 
+            pcMensaje:='Persona no registrada';
+            RETURN;
+        END IF;
+        
+        --VALIDAR QUE EL EMPLEADO A ACTUALIZAR EN REALIDAD EXISTA
+        SELECT COUNT(*) INTO vnConteo FROM EMPLEADO WHERE IDEMPLEADO=pnIdEmpleado;
+        IF vnConteo=0 THEN 
+            pcMensaje:='IdEmpleado no existe no se puede actualizar registro';
+            RETURN;
+        END IF;
+        
+        UPDATE EMPLEADO
+        SET IDEMPLEADO=pnIdEmpleado,FECHAINGRESOAEROLINEA=pdFechaIngresoAerolinea,
+            PERSONA_IDPERSONA=pnPersona_idPersona
+        WHERE IDEMPLEADO=pnIdEmpleado;
+        
+        COMMIT;
+        pbError:=FALSE;
+        pcMensaje:='Update de Empleado exitoso';
+        RETURN;
+    END IF;
+    
+    IF pcAccion='DELETE' THEN 
+       --VALIDACIN DE CAMPOS VACIOS
+        IF pnIdEmpleado='' OR pnIdEmpleado IS NULL THEN
+            pcMensaje:='parametro no ingresado idEmpleado';
+            RETURN;
+        END IF;
+        --VALIDAR QUE EL EMPLEADO A ACTUALIZAR EN REALIDAD EXISTA
+        SELECT COUNT(*) INTO vnConteo FROM EMPLEADO WHERE IDEMPLEADO=pnIdEmpleado;
+        IF vnConteo=0 THEN 
+            pcMensaje:='IdEmpleado no existe no se puede eliminar registro';
+            RETURN;
+        END IF;
+        
+       /*DELETE EMPLEADO*/
+        DELETE FROM EMPLEADOXCARGO WHERE EMPLEADO_IDEMPLEADO=pnIdEmpleado;
+                                                                
+        DELETE FROM EMPLEADOXJEFE WHERE EMPLEADO_IDJEFE=pnIdEmpleado;
+        
+        DELETE FROM EMPLEADOXJEFE WHERE EMPLEADO_IDEMPLEADO=pnIdEmpleado;
+        
+        DELETE FROM BONO WHERE EMPLEADO_IDEMPLEADO=pnIdEmpleado;
+                                                                
+        DELETE FROM DEDUCCION WHERE EMPLEADO_IDEMPLEADO=pnIdEmpleado;
+                                                                
+         DELETE FROM EMPLEADOXPLANILLA WHERE EMPLEADO_IDEMPLEADO=pnIdEmpleado;   
+                                                                
+         DELETE FROM ANTICIPO WHERE EMPLEADO_IDEMPLEADO=pnIdEmpleado; 
+        
+        DELETE FROM TRIPULANTEXVUELO WHERE TRIPULANTE_IDTRIPULANTE IN (SELECT T.IDTRIPULANTE
+                                                                        FROM EMPLEADO E
+                                                                        INNER JOIN TRIPULANTE T ON E.IDEMPLEADO=T.EMPLEADO_IDEMPLEADO 
+                                                                        WHERE E.IDEMPLEADO=pnIdEmpleado);
+        
+        DELETE FROM LICENCIA WHERE TRIPULANTE_IDTRIPULANTE IN (SELECT T.IDTRIPULANTE
+                                                                FROM EMPLEADO E
+                                                                INNER JOIN TRIPULANTE T ON E.IDEMPLEADO=T.EMPLEADO_IDEMPLEADO 
+                                                                WHERE E.IDEMPLEADO=pnIdEmpleado);
+                                                                        
+        DELETE FROM TRIPULANTE WHERE EMPLEADO_IDEMPLEADO=pnIdEmpleado;
+                                                                                                    
+        DELETE FROM EMPLEADO WHERE IDEMPLEADO=pnIdEmpleado;
+        
+        COMMIT;
+        pbError:=FALSE;
+        pcMensaje:='DELETE de Empleado exitoso';
+        RETURN;
+        
+    END IF;
+
+END SP_EMPLEADO;
+/
+
