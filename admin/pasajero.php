@@ -1,12 +1,12 @@
-<?php 
-
-// session_start();
-// if($_SESSION['status']==false || $_SESSION["id_tipo_usuario"]!=1) { // O el usuario no es administrador
-//     header("Location: ../login.php");
-// }
-
+<?php
+  session_start();
+  // Si no se ha declarado esta variable es porque no se ha iniciado sesion.
+  if (!isset($_SESSION["permiso"])){ 
+    header("Location: ../login.php");
+    // Si se inicio pero el permiso no es correcto. 
+  } else if (!($_SESSION["permiso"] == "trabajador"))
+    header("Location: ../admin/index.php");
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>

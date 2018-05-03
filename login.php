@@ -105,6 +105,7 @@
         <script src="js/jquery.backstretch.min.js"></script>
         <script src="js/scripts.js"></script>
         <script src="js/controlador.js"></script>
+        <script src="js/login.js"></script>
         
 </body>
 </html>

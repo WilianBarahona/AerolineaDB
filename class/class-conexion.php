@@ -56,7 +56,7 @@
 		}
 
 		public function cantidadRegistros($stid){
-			return oci_num_rows($stid);
+			return oci_fetch_row($stid);
 		}
 
 		public function liberarResultado($stid){

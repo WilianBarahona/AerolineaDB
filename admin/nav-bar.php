@@ -32,5 +32,13 @@
             <li id="btn-pais">
                 <a href="pais.php"><span class="glyphicon glyphicon-screenshot"></span>Paises</a>
             </li>
+
+            <li id="btn-logout">
+                <a href="../ajax/logout-sesion.php"><span class="glyphicon glyphicon-hourglass"></span>Logout</a>
+            </li>
+
+            <li id="btn-manual-user">
+                <a href="../docx/Manual_de_Usuario.pdf" target="_blank"><span class=" glyphicon glyphicon-exclamation-sign"></span>Ayuda</a>
+            </li>
         </ul>
 </div>

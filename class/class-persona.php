@@ -157,5 +157,81 @@
 				" Genero_idGenero: " . $this->Genero_idGenero . 
 				" Pais_idPais: " . $this->Pais_idPais;
 		}
+
+		// --- Función que Valida si existe un Usuario en la Base ---
+		public static function verificarUsuario($conexion, $email, $password){
+			$respuesta = array();
+			// Convierte la contraseña en Hash para que pueda ser evaluada en la base
+			$passwordLower=hash('SHA512',$password);
+			$passwordHash = strtoupper($passwordLower);
+
+			// $respuesta["hash"]=$passwordHash;
+
+			// Consulta para verficar que el Usuario es un Empleado
+			$resultado = $conexion->ejecutarInstruccion (
+				"SELECT COUNT(*)
+				FROM PERSONA per
+				INNER JOIN EMPLEADO emp ON (per.idPersona = emp.Persona_idPersona) 
+				WHERE per.correo = '$email' AND per.password = '$passwordHash'
+			");
+
+			$cantidadRegistros = $conexion->cantidadRegistros($resultado); // Indica la cantidad de registros encontrados
+
+			// $respuesta["cantidaRegistros"]=$cantidadRegistros;
+			
+			$usuario = 'empleado';
+			$respuesta["cantidad"]=$cantidadRegistros;
+
+			if ($cantidadRegistros[0] == '0'){
+				$usuario = 'cliente';
+				// $respuesta["cantidaRegistross"]="jajd";
+
+				// Consulta para verificar que el Usuario es un Cliente
+				$resultado = $conexion->ejecutarInstruccion (
+					"SELECT COUNT(*)
+					FROM PERSONA per
+					INNER JOIN Pasajero pj ON (per.idPersona = pj.Persona_idPersona) 
+					WHERE per.correo = '$email' AND per.password = '$passwordHash'
+				");
+
+				$cantidadRegistros = $conexion->cantidadRegistros($resultado); // Indica la cantidad de registros encontrados
+				// $respuesta["cantidad"]=$cantidadRegistros;
+				// $respuesta["passss"]=$email;
+
+			} 
+
+			// $cantidadRegistros == 1, significa que encontro un registro en la Base
+			if ($cantidadRegistros[0] == '1') {
+
+				$fila = $conexion->obtenerFila($resultado);
+				
+				if ($usuario == 'empleado'){
+					$_SESSION["idEmpleado"] = $fila["idEmpleado"];
+					$_SESSION["permiso"] = "trabajador";
+					$respuesta["status"] = 1;
+				} else {
+					$_SESSION["idCliente"] = $fila["idPasajero"];
+					$_SESSION["permiso"] = "cliente";
+					$respuesta["status"] = 2;
+				}
+
+				$_SESSION["primerNombre"] = $fila["pNombre"];
+				$_SESSION["segundoNombre"] = $fila["sNombre"];
+				$_SESSION["primerApellido"] = $fila["pApellido"];
+				$_SESSION["segundoApellido"] = $fila["sApellido"];
+				$_SESSION["email"] = $fila["correo"];
+	
+				
+				$respuesta["mensaje"] = "Si tiene acceso";
+
+			} else {
+
+				$respuesta["status"] = 0;
+				$respuesta["mensaje"] = "No tiene acceso";
+			}
+
+			echo json_encode($respuesta);
+		}
+
 	}
 ?>

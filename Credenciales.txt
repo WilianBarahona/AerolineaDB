@@ -1,0 +1,10 @@
+Parte administrativa
+-------------------
+email->Jermayne.Cano@gmail.com
+password->asd.456
+
+
+Parte del cliente 
+---------------------
+email->Jesselyn.Frankum@gmail.com
+password->asd.456

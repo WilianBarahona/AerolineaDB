@@ -1,36 +1,39 @@
 $(document).ready(function () {
-    "use strict";
-    $("#btn-conexion").click(function () {
+    
+    $("#btn-conexion").click(function () { 
+    console.log("btn-conexion");  
+        $.ajax({
+                url:"ajax/gestion-login.php",
+                method: "POST",
+                data:{
+                    "accion":"login",
+                    "email":$("#inputEmail").val(),
+                    "password":$("#inputPassword").val()
+                },
+                datatype:'JSON',
+                success: function(respuesta){
+                    console.log(respuesta)
+                    var js=JSON.parse(respuesta);
 
-        var email = $("#inputEmail").val(), password = $("#inputPassword").val();
+                    if (js.status === 1) {
+                        window.location = "admin/index.php";
 
-        if ((email === "") || (password === "")) {
-            $("#message").html("<div class=\"alert alert-danger alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Please enter a username and a password</div>");
-        } else {
-            $.ajax({
-                type: "POST",
-                url: "checklogin.php",
-                data: "myusername=" + username + "&mypassword=" + password,
-                dataType: 'JSON',
-                success: function (html) {
-                    //console.log(html.response + ' ' + html.username);
-                    if (html.response === 'true') {
-                        //location.assign("../index.php");
-                       location.reload();
-                        return html.username;
+                    } else if (js.status == 2){
+                        window.location = "menuPrincipal.php";
+
                     } else {
-                        $("#message").html(html.response);
+                        
+                        alert('El usuario no existe')
                     }
                 },
-                error: function (textStatus, errorThrown) {
-                    console.log(textStatus);
-                    console.log(errorThrown);
-                },
-                beforeSend: function () {
-                    $("#message").html("<p class='text-center'><img src='images/ajax-loader.gif'></p>");
-                }
-            });
-        }
-        return false;
+                error: function(){
+
+            }
+        });
+
     });
 });
+
+
+
+
